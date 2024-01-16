@@ -1,0 +1,53 @@
+---
+const profilePicture = "https://i.imgur.com/umBZPqd.png"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>bycarlosgamez</title>
+	</head>
+	<body>
+    <div class="profile">
+        <img 
+         src={profilePicture}
+         alt="Carlos website profile picture"
+         class="profile__picture"
+        />
+        <div class="profile__details">
+            <h1>I’m a Design Technologust who's passionate about solving problems and creating delightful user experiences.</h1>
+            <div>
+                <a href="https://github.com/bycarlosgamez"  target="_blank">Github</a>
+                <a href="https://www.linkedin.com/in/bycarlosgamez/" target="_blank">LinkedIn</a>
+                <a href="https://www.threads.net/@omgitscharly" target="_blank">Threads</a>
+            </div>
+        </div>
+    </div>
+	</body>
+</html>
+
+<style>
+    .profile{
+        display: flex;
+        align-items: start;
+        flex-wrap: wrap;
+        padding: 1rem 0 3rem 0;
+    }
+
+    .profile__details {
+        flex: 1 0 300px;
+    }
+
+    .profile__details > h1 {
+        margin-top: 0;
+    }
+
+    .profile__picture {
+        margin-top: 0 2rem 1rem 0;
+        height: 100px;
+        width: 100px;
+    }
+</style>
