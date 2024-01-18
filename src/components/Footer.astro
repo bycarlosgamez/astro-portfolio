@@ -1,45 +1,17 @@
 <footer class='footer' id='footer'>
-  <div class='footer__social'>
+  <nav class='footer__nav'>
     <ul>
-      <li>
-        <a
-          href='https://github.com/bycarlosgamez'
-          target='_blank'
-          rel='noopener'
-          ><img src='img/icons/social_github.svg' alt='github icon' />
-        </a>
-      </li>
-      <li>
-        <a
-          href='https://www.linkedin.com/in/bycarlosgamez/'
-          target='_blank'
-          rel='noopener'
-          ><img src='img/icons/social_linkedIn.svg' alt='linkeind icon' />
-        </a>
-      </li>
-      <li>
-        <a
-          href='https://www.threads.net/@omgitscharly'
-          target='_blank'
-          rel='noopener'
-          ><img src='img/icons/social_threads.svg' alt='twitter icon' />
-        </a>
-      </li>
-    </ul>
-  </div>
-  <nav class='footer__navigation'>
-    <ul>
-      <li><a class='link' href='/'>Home</a></li>
-      <li><a class='link' href='#about'>About me</a></li>
-      <li><a class='link' href='#work'>My Work</a></li>
-      <li><a class='link' href='#blog'>Blog</a></li>
-      <li><a class='link' href='#contact'>Contact me</a></li>
+      <li><a class='footer__nav--link' href='#home'>Home</a></li>
+      <li><a class='footer__nav--link' href='#about'>About me</a></li>
+      <li><a class='footer__nav--link' href='#work'>My Work</a></li>
+      <li><a class='footer__nav--link' href='#blogt'>Blog</a></li>
+      <li><a class='footer__nav--link' href='#contact'>Contact me</a></li>
     </ul>
   </nav>
   <div class='footer__copyright'>
-    <img src='img/logo.svg' alt="omgitscharly's logo" />
+    <!-- <img src='img/logo.svg' alt="omgitscharly's logo" /> -->
     <small>
-      <span>© 2024 bycarlogamez</span>
+      <span>© 2024 bycarlogamez.</span>
       <span>All rights reserved.</span>
     </small>
   </div>
@@ -47,19 +19,21 @@
 
 <style>
   .footer * {
-    font-size: 1.125;
-    font-weight: 600;
     padding: 0;
     margin: 0;
-    max-width: 112.5rem;
   }
 
   .footer {
     text-align: center;
     margin: 0 0 4rem 0;
+
+    color: #1e335a;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 160%; /* 28.8px */
   }
 
-  .footer__copyright {
+  .footer .footer__copyright {
     display: flex;
     gap: 0.75rem;
     justify-content: center;
@@ -76,39 +50,53 @@
   .footer small {
     display: flex;
     flex-direction: column;
-    gap: 4px;
     color: var(--secondaryColor);
     letter-spacing: 2px;
   }
 
-  .footer__navigation {
+  .footer__nav {
     margin: 40px 0;
   }
 
-  .footer__social ul {
+  .footer__nav--link {
+    color: #1e335a;
+  }
+
+  .footer ul {
+    margin-bottom: 2rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 72px;
   }
 
   @media screen and (min-width: 1024px) {
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 32px auto;
-    max-width: var(--max-width);
-  }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 32px auto;
+      max-width: 93.438rem;
+    }
 
-  .footer__copyright {
-    order: -1;
-  }
+    .footer__copyright {
+      order: -1;
+    }
 
-  .footer .footer__navigation {
-    margin: 0 0;
-    text-align: right;
-  }
-  }
+    .footer__nav {
+      margin: 0 0;
+      text-align: right;
+    }
 
+    .footer ul {
+      margin-bottom: 0;
+      flex-direction: row;
+      gap: 3.75rem;
+    }
 
+    .footer small {
+      flex-direction: row;
+      gap: 0.8rem;
+      letter-spacing: 2px;
+    }
+  }
 </style>
