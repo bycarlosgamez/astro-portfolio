@@ -1,0 +1,30 @@
+---
+import Header from '../components/Header.astro';
+// import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='generator' content={Astro.generator} />
+    <meta name='desciption' content='Carlos Gamez Website' />
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&family=Roboto:ital,wght@0,300;0,400;1,500&display=swap'
+      rel='stylesheet'
+    />
+    <!-- Title is hardcoded -->
+    <title>bycarlosgamez</title>
+  </head>
+  <body>
+    <main>
+      <Header />
+      <slot />
+      <!-- <Footer /> -->
+    </main>
+  </body>
+</html>

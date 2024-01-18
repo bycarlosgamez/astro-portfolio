@@ -1,0 +1,64 @@
+/******************************************
+/* Custom Reset
+/*******************************************/
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Dosis', sans-serif;
+  /* font: var(--paragraph); */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  color: #1e335a;
+}
+
+a {
+  text-decoration: none;
+  /* color: var(--primaryColor); */
+  transition: color 0.5s ease-out;
+}
+
+a:hover {
+  /* color: var(--accentColor); */
+  transition: color 0.5s ease-out;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-size: 2.625rem;
+  line-height: 4.2rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+h1 + h2 {
+  font-size: 1.1rem;
+  margin-top: -1.4rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+main {
+  max-width: 93.438rem;
+  margin: 0 auto;
+}
