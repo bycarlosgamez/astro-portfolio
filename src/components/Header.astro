@@ -1,0 +1,165 @@
+<header class='header'>
+  <div class='container'>
+    <a href='index.html' class='header__logo'> bycarlosgamez.</a>
+    <button class='header__menu--btn'>
+      <svg
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <path
+          d='M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z'
+          fill='#323232'></path>
+      </svg>
+      <svg
+        class='none'
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <path
+          d='M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z'
+          fill='#323232'></path>
+      </svg>
+    </button>
+    <nav class='header__menu'>
+      <ul>
+        <li><a class='header__menu--link' href='#home'>Home</a></li>
+        <li><a class='header__menu--link' href='#about'>About me</a></li>
+        <li><a class='header__menu--link' href='#work'>My work</a></li>
+        <li><a class='header__menu--link' href='#blog'>Blog</a></li>
+        <li><a class='header__menu--link' href='#contact'>Contact me</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    /* background-color: var(--whiteColor); */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    width: 100%;
+    /* height: var(--header-height); */
+    padding: 1rem;
+  }
+
+  .header > .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 93.438rem;
+  }
+  /* ******** Menu ******** */
+  .header__menu--btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .header__menu--btn svg {
+    /* fill: var(--primaryColor); */
+  }
+
+  .header__menu {
+    position: fixed;
+    left: 0;
+    /* bottom: var(--header-height); */
+    width: 100%;
+    /* background-color: var(--whiteColor); */
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  .header__menu.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .header__menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 3%;
+  }
+
+  .header__menu a {
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+    display: block;
+
+    color: #1e335a;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: 0.16rem;
+  }
+
+  .header__menu a:hover {
+    border: 2px solid var(--accentColor);
+    background-color: var(--whiteColor);
+    border-radius: 4px;
+    padding: calc(1rem - 2px);
+  }
+
+  .header__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1e335a;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .header {
+      position: sticky;
+      top: 0;
+      padding: 0.5rem;
+      height: 3.625rem;
+      margin-top: 3.75rem;
+    }
+    .header__menu--btn {
+      display: none;
+    }
+
+    .header__menu {
+      position: static;
+      opacity: 1;
+      pointer-events: auto;
+      text-align: right;
+    }
+
+    .header__menu.is-active {
+      align-items: center;
+    }
+
+    .header__menu ul {
+      flex-flow: row nowrap;
+      justify-content: flex-end;
+      align-items: center;
+      width: auto;
+      gap: 3.5rem;
+      padding: 0;
+    }
+
+    .header__menu a {
+      padding: 0 1rem;
+      display: inline;
+      transition: color 0.5s ease-out;
+    }
+
+    .header__menu a:hover {
+      border: none;
+      padding: 0 1rem;
+      display: inline;
+    }
+  }
+</style>
