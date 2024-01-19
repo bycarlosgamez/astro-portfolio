@@ -27,7 +27,7 @@
     text-align: center;
     margin: 0 0 4rem 0;
 
-    color: #1e335a;
+    color: var(--primary-content-01);
     font-size: 1.125rem;
     font-weight: 600;
     line-height: 160%; /* 28.8px */
@@ -38,7 +38,7 @@
     gap: 0.75rem;
     justify-content: center;
     align-items: center;
-    font: var(--smallText);
+    /* font: var(--smallText); */
   }
 
   .footer img {
@@ -50,7 +50,7 @@
   .footer small {
     display: flex;
     flex-direction: column;
-    color: var(--secondaryColor);
+    color: var(--primary-content-01);
     letter-spacing: 2px;
   }
 
@@ -59,7 +59,13 @@
   }
 
   .footer__nav--link {
-    color: #1e335a;
+    color: var(--primary-content-01);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .footer__nav--link:hover {
+    color: var(--primary-accent);
+    transform: scale(0.9);
   }
 
   .footer ul {

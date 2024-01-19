@@ -1,7 +1,11 @@
+---
+import ThemeToogler from './ThemeToogler.astro';
+---
+
 <header class='header'>
   <div class='container'>
     <a href='index.html' class='header__logo'> bycarlosgamez.</a>
-    <button class='header__menu--btn'>
+    <button aria-label='menu toggler' class='header__menu--btn'>
       <svg
         width='24'
         height='24'
@@ -33,6 +37,7 @@
         <li><a class='header__menu--link' href='#work'>My work</a></li>
         <li><a class='header__menu--link' href='#blog'>Blog</a></li>
         <li><a class='header__menu--link' href='#contact'>Contact me</a></li>
+        <ThemeToogler />
       </ul>
     </nav>
   </div>
@@ -40,7 +45,8 @@
 
 <style>
   .header {
-    /* background-color: var(--whiteColor); */
+    color: var(--primary-content-01)
+    background-color: var(--primary-surface-02);
     position: fixed;
     left: 0;
     bottom: 0;
@@ -51,6 +57,7 @@
   }
 
   .header > .container {
+    background-color: var(--primary-surface-02);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -64,7 +71,7 @@
   }
 
   .header__menu--btn svg {
-    /* fill: var(--primaryColor); */
+    fill: var(--primary-content-01);
   }
 
   .header__menu {
@@ -72,7 +79,7 @@
     left: 0;
     /* bottom: var(--header-height); */
     width: 100%;
-    /* background-color: var(--whiteColor); */
+    background-color: var(--primary-surface-02);
     text-align: center;
     opacity: 0;
     pointer-events: none;
@@ -91,31 +98,33 @@
     padding: 0 3%;
   }
 
-  .header__menu a {
+  .header__menu--link {
     padding: 1rem;
     text-align: center;
     align-items: center;
     display: block;
 
-    color: #1e335a;
     font-size: 1rem;
     font-weight: 500;
     line-height: 140%; /* 22.4px */
     letter-spacing: 0.16rem;
+    transition: all 0.2s ease-in-out;
   }
 
-  .header__menu a:hover {
-    border: 2px solid var(--accentColor);
-    background-color: var(--whiteColor);
-    border-radius: 4px;
+  .header__menu--link:hover {
+    border: 2px solid var(--primare-accent);
+    /* background-color: var(--primary-surface-01); */
+    /* border-radius: 4px; */
     padding: calc(1rem - 2px);
+    transform: scale(0.9);
+    color: var(--primary-accent);
   }
 
   .header__logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #1e335a;
+    color: var(--primary-content-01);
   }
 
   @media screen and (min-width: 1024px) {
@@ -150,16 +159,17 @@
       padding: 0;
     }
 
-    .header__menu a {
+    .header__menu--link {
       padding: 0 1rem;
       display: inline;
-      transition: color 0.5s ease-out;
+      transition: all 0.2s ease-out;
     }
 
-    .header__menu a:hover {
+    .header__menu--link:hover {
       border: none;
       padding: 0 1rem;
       display: inline;
+      transform: scale(0.9);
     }
   }
 </style>

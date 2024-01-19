@@ -1,4 +1,26 @@
 /******************************************
+/* Custom Properties
+/*******************************************/
+html {
+  --primary-accent: #69d3bd;
+  --primary-content-01: #1e335a;
+  --primary-content-02: #285f6f;
+  --primary-border-01: #338373;
+  --primary-border-02: #5d9f82;
+  --primary-surface-01: #c7dfc6;
+  --primary-surface-02: #fafcf9;
+}
+
+html.dark {
+  --primary-content-01: #fafcf9;
+  --primary-content-02: #c7dfc6;
+  --primary-border-01: #5d9f82;
+  --primary-border-02: #338373;
+  --primary-surface-01: #285f6f;
+  --primary-surface-02: #1e335a;
+}
+
+/******************************************
 /* Custom Reset
 /*******************************************/
 *,
@@ -19,18 +41,17 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  color: #1e335a;
+  color: var(--primary-content-01);
+  background-color: var(--primary-surface-02);
 }
 
 a {
   text-decoration: none;
-  /* color: var(--primaryColor); */
-  transition: color 0.5s ease-out;
+  color: var(--primary-content-01);
 }
 
-a:hover {
-  /* color: var(--accentColor); */
-  transition: color 0.5s ease-out;
+a:visited {
+  color: var(--primary-content-01);
 }
 
 ul {
