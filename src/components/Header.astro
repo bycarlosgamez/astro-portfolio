@@ -5,20 +5,19 @@ import ThemeToogler from './ThemeToogler.astro';
 <header class='header'>
   <div class='container'>
     <a href='index.html' class='header__logo'> bycarlosgamez.</a>
-    <button aria-label='menu toggler' class='header__menu--btn'>
+    <button aria-label='menu toggler' class='header__menu--toggler'>
       <svg
+        class='menu-icon'
         width='24'
         height='24'
         viewBox='0 0 24 24'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
       >
-        <path
-          d='M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z'
-          fill='#323232'></path>
+        <path d='M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z'></path>
       </svg>
       <svg
-        class='none'
+        class='none close-icon'
         width='24'
         height='24'
         viewBox='0 0 24 24'
@@ -27,7 +26,7 @@ import ThemeToogler from './ThemeToogler.astro';
       >
         <path
           d='M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z'
-          fill='#323232'></path>
+        ></path>
       </svg>
     </button>
     <nav class='header__menu'>
@@ -45,14 +44,14 @@ import ThemeToogler from './ThemeToogler.astro';
 
 <style>
   .header {
-    color: var(--primary-content-01)
+    color: var(--primary-content-01);
     background-color: var(--primary-surface-02);
     position: fixed;
     left: 0;
     bottom: 0;
     z-index: 999;
     width: 100%;
-    /* height: var(--header-height); */
+    height: 4rem;
     padding: 1rem;
   }
 
@@ -64,20 +63,22 @@ import ThemeToogler from './ThemeToogler.astro';
     max-width: 93.438rem;
   }
   /* ******** Menu ******** */
-  .header__menu--btn {
+  .header__menu--toggler {
+    color: var(--primary-content-01);
     background: none;
     border: none;
     cursor: pointer;
   }
 
-  .header__menu--btn svg {
+  .header__menu--toggler svg {
     fill: var(--primary-content-01);
   }
 
   .header__menu {
     position: fixed;
     left: 0;
-    /* bottom: var(--header-height); */
+    bottom: 2rem;
+    margin-bottom: 2rem;
     width: 100%;
     background-color: var(--primary-surface-02);
     text-align: center;
@@ -115,8 +116,8 @@ import ThemeToogler from './ThemeToogler.astro';
     border: 2px solid var(--primare-accent);
     /* background-color: var(--primary-surface-01); */
     /* border-radius: 4px; */
-    padding: calc(1rem - 2px);
-    transform: scale(0.9);
+    /* padding: calc(1rem - 2px);
+    transform: scale(0.9); */
     color: var(--primary-accent);
   }
 
@@ -135,7 +136,8 @@ import ThemeToogler from './ThemeToogler.astro';
       height: 3.625rem;
       margin-top: 3.75rem;
     }
-    .header__menu--btn {
+
+    .header__menu--toggler {
       display: none;
     }
 
@@ -144,6 +146,7 @@ import ThemeToogler from './ThemeToogler.astro';
       opacity: 1;
       pointer-events: auto;
       text-align: right;
+      margin-bottom: 0;
     }
 
     .header__menu.is-active {
@@ -173,3 +176,26 @@ import ThemeToogler from './ThemeToogler.astro';
     }
   }
 </style>
+
+<script>
+  const NONE = 'none';
+  const IS_ACTIVE = 'is-active';
+
+  const menuToggler = document.querySelector('.header__menu--toggler');
+  const menu = document.querySelector('.header__menu');
+  const menuIcon = document.querySelector('.menu-icon');
+  const closeIcon = document.querySelector('.close-icon');
+
+  if (menu && menuToggler) {
+    menuToggler.addEventListener('click', () => {
+      if (menuIcon) {
+        menuIcon.classList.toggle(NONE);
+      }
+
+      if (closeIcon) {
+        closeIcon.classList.toggle(NONE);
+      }
+      menu.classList.toggle(IS_ACTIVE);
+    });
+  }
+</script>

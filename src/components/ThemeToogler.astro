@@ -47,14 +47,48 @@
 
 <script>
   const DARK_THEME_CLASS = 'dark';
+  const COLOR_MODE = 'COLOR_MODE';
+  const DARK_THEME = 'DARK';
+  const LIGHT_THEME = 'LIGHT';
 
   // Get Toogle
   const toggle = document.querySelector('.toggler');
   const rootElement = document.documentElement;
 
+  const getInitialColorMode = () => {
+    const prevSavedColorMode = window.localStorage.getItem(COLOR_MODE);
+
+    if (prevSavedColorMode) {
+      return prevSavedColorMode;
+    }
+
+    if (window.matchMedia('prefers-color-scheme: dark').matches) {
+      return DARK_THEME;
+    }
+    return LIGHT_THEME;
+  };
+
+  const initialColorMode = getInitialColorMode();
+
+  const setInitialColorMode = (mode: string) => {
+    if (mode === LIGHT_THEME) {
+      rootElement.classList.remove(DARK_THEME_CLASS);
+    } else {
+      rootElement.classList.add(DARK_THEME_CLASS);
+    }
+  };
+
+  setInitialColorMode(initialColorMode);
+
   if (toggle) {
     toggle.addEventListener('click', () => {
       rootElement.classList.toggle(DARK_THEME_CLASS);
+
+      const colorMode = rootElement.classList.contains(DARK_THEME_CLASS)
+        ? DARK_THEME
+        : LIGHT_THEME;
+
+      window.localStorage.setItem(COLOR_MODE, colorMode);
     });
   }
 </script>
