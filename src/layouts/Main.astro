@@ -11,14 +11,45 @@ import '../styles/global.css';
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
     <meta name='desciption' content='Carlos Gamez Website' />
+    <!-- Title is hardcoded -->
+    <title>bycarlosgamez</title>
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <link
       href='https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&family=Roboto:ital,wght@0,300;0,400;1,500&display=swap'
       rel='stylesheet'
     />
-    <!-- Title is hardcoded -->
-    <title>bycarlosgamez</title>
+    <script is:inline>
+      const DARK_THEME_CLASS = 'dark';
+      const COLOR_MODE = 'COLOR_MODE';
+      const DARK_THEME = 'DARK';
+      const LIGHT_THEME = 'LIGHT';
+
+      const rootElement = document.documentElement;
+
+      const getInitialColorMode = () => {
+        const prevSavedColorMode = window.localStorage.getItem(COLOR_MODE);
+
+        if (prevSavedColorMode) {
+          return prevSavedColorMode;
+        }
+
+        if (window.matchMedia('prefers-color-scheme: dark').matches) {
+          return DARK_THEME;
+        }
+        return LIGHT_THEME;
+      };
+
+      const initialColorMode = getInitialColorMode();
+
+      const setInitialColorMode = (mode) => {
+        if (mode === LIGHT_THEME) {
+          rootElement.classList.remove(DARK_THEME_CLASS);
+        } else {
+          rootElement.classList.add(DARK_THEME_CLASS);
+        }
+      };
+    </script>
   </head>
   <body>
     <main>
