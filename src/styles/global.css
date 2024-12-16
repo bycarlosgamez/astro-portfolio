@@ -1,75 +1,41 @@
-/******************************************
-/* Custom Properties
-/*******************************************/
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
 html {
-  --primary-accent: #69d3bd;
-  --primary-content-01: #1e335a;
-  --primary-content-02: #285f6f;
-  --primary-border-01: #338373;
-  --primary-border-02: #5d9f82;
-  --primary-surface-01: #c7dfc6;
-  --primary-surface-02: #fafcf9;
+  --background: #f5f5f5;
+  --background-secondary: #efefef;
+  --grey-200: #222222;
+  --grey-400: #444444;
+  --grey-600: #333333;
+  --grey-900: #111111;
+  --accent: #1b6b68;
 }
 
 html.dark {
-  --primary-content-01: #fafcf9;
-  --primary-content-02: #c7dfc6;
-  --primary-border-01: #5d9f82;
-  --primary-border-02: #338373;
-  --primary-surface-01: #285f6f;
-  --primary-surface-02: #1e335a;
-}
-
-/******************************************
-/* Custom Reset
-/*******************************************/
-*,
-*::after,
-*::before {
-  box-sizing: inherit;
-}
-
-html {
-  box-sizing: border-box;
-  font-size: 16px;
-  scroll-behavior: smooth;
+  --background: #090909;
+  --background-secondary: #171717;
+  --grey-200: #eaeaea;
+  --grey-400: #acacac;
+  --grey-600: #f5f5f5;
+  --grey-900: #fafafa;
+  --accent: #08a7a1;
 }
 
 body {
-  font-family: 'Dosis', sans-serif;
-  /* font: var(--paragraph); */
-  margin: 0;
+  font-family: 'Arimo', sans-serif;
   padding: 0;
-  overflow-x: hidden;
-  color: var(--primary-content-01);
-  background-color: var(--primary-surface-02);
-}
-
-a {
-  text-decoration: none;
-  color: var(--primary-content-01);
-}
-
-a:visited {
-  color: var(--primary-content-01);
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-img {
-  width: 100%;
-  height: auto;
+  color: var(--grey-600);
+  background-color: var(--background);
+  line-height: 1.5rem;
 }
 
 h1 {
-  font-size: 2.625rem;
-  line-height: 4.2rem;
-  text-align: center;
-  margin: 0 auto;
+  font-size: 3rem;
+  line-height: 1;
 }
 
 h1 + h2 {
@@ -79,14 +45,40 @@ h1 + h2 {
   font-weight: 400;
 }
 
-main {
-  max-width: 93.438rem;
-  margin: 0 auto;
+.container {
+  max-width: 40rem;
+  margin-top: 2rem;
+  margin-inline: auto;
+  padding-inline: 2rem;
 }
 
-/******************************************
-/* UTILITIES
-/*******************************************/
-.none {
-  display: none;
+main {
+  display: grid;
+}
+
+nav {
+  order: 0;
+}
+
+.content {
+  max-width: 40rem;
+  order: -1;
+}
+
+footer {
+  order: 1;
+}
+
+@media (min-width: 768px) {
+  nav {
+    order: -1;
+  }
+
+  .content {
+    order: 0;
+  }
+
+  footer {
+    order: 1;
+  }
 }

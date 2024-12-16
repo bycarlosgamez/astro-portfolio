@@ -1,47 +1,46 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-
-type Props = {
-  title: string;
-};
-
-const { title } = Astro.props;
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
 ---
 
+<!doctype html>
 <html lang='en'>
   <head>
-    <meta charset='utf-8' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='generator' content={Astro.generator} />
-    <meta name='desciption' content='Carlos Gamez Website' />
-    <title>{title}</title>
+    <meta
+      name='description'
+      content='Carlos Gamez | Design Technologist and Frontend Developer'
+    />
+    <title>bycarlosgamez webpage</title>
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <link
-      href='https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&family=Roboto:ital,wght@0,300;0,400;1,500&display=swap'
+      href='https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap'
       rel='stylesheet'
     />
     <script is:inline>
       const DARK_THEME_CLASS = 'dark';
       const COLOR_MODE = 'COLOR_MODE';
-      const DARK_THEME = 'DARK';
       const LIGHT_THEME = 'LIGHT';
+      const DARK_THEME = 'DARK';
 
       const rootElement = document.documentElement;
 
       const getInitialColorMode = () => {
-        const prevSavedColorMode = window.localStorage.getItem(COLOR_MODE);
+        const savedColorMode = window.localStorage.getItem(COLOR_MODE);
 
-        if (prevSavedColorMode) {
-          return prevSavedColorMode;
+        if (savedColorMode) {
+          return savedColorMode;
         }
 
-        if (window.matchMedia('prefers-color-scheme: dark').matches) {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           return DARK_THEME;
         }
+
         return LIGHT_THEME;
       };
 
@@ -54,13 +53,19 @@ const { title } = Astro.props;
           rootElement.classList.add(DARK_THEME_CLASS);
         }
       };
+
+      setInitialColorMode(initialColorMode);
     </script>
   </head>
   <body>
-    <main>
-      <Header />
-      <slot />
-      <Footer />
-    </main>
+    <div class='container'>
+      <main>
+        <NavBar class='navbar' />
+        <div class='content'>
+          <slot />
+        </div>
+        <Footer class='footer' />
+      </main>
+    </div>
   </body>
 </html>

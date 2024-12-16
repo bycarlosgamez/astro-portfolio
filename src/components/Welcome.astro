@@ -1,0 +1,96 @@
+---
+const profilePicture = 'https://i.imgur.com/umBZPqd.png';
+---
+
+<section>
+  <div class='profile'>
+    <img
+      alt="bycarlosgamez's website"
+      class='profile__picture'
+      src={profilePicture}
+      height='200px'
+      width='200px'
+    />
+
+    <div class='profile__details'>
+      <h1>Carlos Gamez</h1>
+      <h2 class='accent'>I'm a Design Technologist</h2>
+      <p>
+        With over 8 years of experience designing and developing scalable and
+        accessible user interfaces, primarily using ReactJs and Typescript.
+      </p>
+    </div>
+  </div>
+
+  <p>
+    I began my career in technology as a product designer, working closely with
+    small startups. This experience allowed me to refine my design skills while
+    learning to code, revealing that coding was the crucial piece missing from
+    my creative process.
+  </p>
+
+  <p>
+    My studies in industrial design emphasized the importance of understanding
+    materials and context, which I sought to apply in the digital realm.
+    Recognizing the transformative power of coding, I immersed myself in
+    development, using my design background to foster effective <strong
+      class='accent'>communication between designers and developers</strong
+    >. This perspective enabled me to bridge the gap between creative vision and
+    technical execution, ensuring projects were visually appealing and
+    functionally robust.
+  </p>
+
+  <p>
+    With over seven years of experience as a frontend developer, I specialize in
+    creating scalable and accessible user interfaces using technologies like
+    <strong class='accent'> ReactJs / NextJs, TypeScript, and Tailwind</strong>.
+    My passion for optimizing front-end workflows drives me to deliver
+    high-quality, production-ready code. I collaborate closely with engineering
+    and product teams to craft seamless user experiences while focusing on <strong
+      class='accent'>UI/UX design principles</strong
+    >.
+  </p>
+
+  <p>
+    Through this journey, I have evolved into a key player in development
+    environments. My experiences have instilled a deep appreciation for
+    collaboration and continuous learning. As I advance in my career, I remain
+    dedicated to delivering impactful products that resonate with users while
+    embracing new technologies and methodologies that enhance my skills.
+  </p>
+</section>
+
+<style>
+  .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 0 3rem 0;
+  }
+
+  .profile__details {
+    flex: 1 0 300px;
+  }
+
+  .profile__details > h1 {
+    margintop: 0;
+  }
+
+  .profile__picture {
+    border-radius: 50%;
+    margin: 0 2rem 1rem 0;
+  }
+
+  .accent {
+    color: var(--accent);
+  }
+
+  h2 {
+    font-weight: bold;
+  }
+  p {
+    color: var(--grey-400);
+    line-height: 1.5rem;
+  }
+</style>

@@ -1,108 +1,19 @@
-<footer class='footer' id='footer'>
-  <nav class='footer__nav'>
-    <ul>
-      <li><a class='footer__nav--link' href='#home'>Home</a></li>
-      <li><a class='footer__nav--link' href='#about'>About me</a></li>
-      <li><a class='footer__nav--link' href='#work'>My Work</a></li>
-      <li><a class='footer__nav--link' href='#blogt'>Blog</a></li>
-      <li><a class='footer__nav--link' href='#contact'>Contact me</a></li>
-    </ul>
-  </nav>
-  <div class='footer__copyright'>
-    <!-- <img src='img/logo.svg' alt="omgitscharly's logo" /> -->
-    <small>
-      <span>© 2024 bycarlogamez.</span>
-      <span>All rights reserved.</span>
-    </small>
-  </div>
+<footer>
+  <small>&copy; bycarlosgamez.</small>
+  <small>
+    <script type='text/javascript'>
+      document.write(new Date().getFullYear());
+    </script>
+  </small>
 </footer>
 
 <style>
-  .footer * {
-    padding: 0;
-    margin: 0;
-  }
-
-  .footer {
+  footer {
+    display: flex;
+    justify-content: space-between;
+    color: var(--grey-400);
+    padding: 3rem 0;
     text-align: center;
-    margin: 0 0 4rem 0;
-
-    color: var(--primary-content-01);
-    font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 160%; /* 28.8px */
-  }
-
-  .footer .footer__copyright {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    align-items: center;
-    /* font: var(--smallText); */
-  }
-
-  .footer img {
-    vertical-align: middle;
-    width: 31.48px;
-    height: 40px;
-  }
-
-  .footer small {
-    display: flex;
-    flex-direction: column;
-    color: var(--primary-content-01);
-    letter-spacing: 2px;
-  }
-
-  .footer__nav {
-    margin: 40px 0;
-  }
-
-  .footer__nav--link {
-    color: var(--primary-content-01);
-    transition: all 0.2s ease-in-out;
-  }
-
-  .footer__nav--link:hover {
-    color: var(--primary-accent);
-    transform: scale(0.9);
-  }
-
-  .footer ul {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  @media screen and (min-width: 1024px) {
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 32px auto;
-      max-width: 93.438rem;
-    }
-
-    .footer__copyright {
-      order: -1;
-    }
-
-    .footer__nav {
-      margin: 0 0;
-      text-align: right;
-    }
-
-    .footer ul {
-      margin-bottom: 0;
-      flex-direction: row;
-      gap: 3.75rem;
-    }
-
-    .footer small {
-      flex-direction: row;
-      gap: 0.8rem;
-      letter-spacing: 2px;
-    }
+    font-size: 0.9rem;
   }
 </style>
