@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/main.astro
+layout: ../layouts/Main.astro
 # name: Carlos Gamez
 # header:
 #   - text: |
