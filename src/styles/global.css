@@ -30,7 +30,7 @@
   --color-white: 0 0% 100%;
 
   --color-dark: var(--color-slate-950);
-  --color-light: var(--color-slate-200);
+  --color-light: var(--color-slate-400);
   --color-accent: var(--color-teal-500);
 
   --text-200: 0.875rem;
@@ -153,6 +153,9 @@ select {
 }
 .bg-white {
   background-color: hsl(var(--color-white));
+}
+.bg-accent {
+  background-color: hsl(var(--color-accent));
 }
 
 .color-dark {
