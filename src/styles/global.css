@@ -125,6 +125,10 @@ select {
   gap: var(--gap, 1rem);
 }
 
+.flow > * + * {
+  margin-block-start: var(--flow-space, 1em);
+}
+
 .container {
   max-width: 80rem;
   margin-inline: auto;
