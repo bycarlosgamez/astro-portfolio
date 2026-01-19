@@ -235,3 +235,16 @@ select {
 .text-900 {
   line-height: 1.1;
 }
+
+.numbered-title {
+  font-family: var(--font-family-condensed);
+  font-size: var(--text-500);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-2xl);
+
+  & span {
+    color: hsl(var(--color-white) / 0.25);
+    margin-right: 0.5em;
+    font-weight: 700;
+  }
+}
