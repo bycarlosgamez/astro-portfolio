@@ -1,0 +1,79 @@
+---
+export type Props = {
+  to: string;
+  title: string;
+  gradientFrom: string;
+  gradientTo: string;
+  poster: string;
+  content: string;
+};
+
+const { to, title, poster, content, gradientFrom, gradientTo } = Astro.props;
+---
+
+<a href={to} class='card'>
+  <div class='card__inner'>
+    <figure class='figure'>
+      <img src={poster} alt='' class='figure__image' />
+    </figure>
+    <figcaption class='figure__caption hidden'>
+      Poster image for {title.toLowerCase()}
+    </figcaption>
+    <h3 class='card__title'>{title}</h3>
+    <p class='card__content'>{content}</p>
+    <div class='card__footer'>View case study &rarr;</div>
+  </div>
+</a>
+
+<style define:vars={{ gradientFrom, gradientTo }}>
+  .card {
+    --radius: 10px;
+    background-image: linear-gradient(
+      to right,
+      var(--gradientFrom),
+      var(--gradientTo)
+    );
+
+    padding: 4px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .card:hover {
+    transform: scale(0.95);
+  }
+
+  .card__inner {
+    background: var(--background);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card__title {
+    font-size: 1.5rem;
+    color: var(--grey-900);
+    font-weight: 500;
+    list-style: 1.7rem;
+  }
+
+  .card__footer {
+    margin: auto 0 0 auto;
+    padding-top: 2rem;
+    font-size: 1.2rem;
+    color: var(--grey-900);
+  }
+
+  .figure {
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .figure__image {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+</style>
