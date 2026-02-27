@@ -175,9 +175,9 @@ import ThemeToggler from './ThemeToggler.astro';
     }
   }
 
-  nav li:has(> a.active) {
+  /* nav li:has(> a.active) {
     border-bottom: 1px solid var(--accent);
-  }
+  } */
 
   button {
     cursor: pointer;
@@ -210,8 +210,6 @@ import ThemeToggler from './ThemeToggler.astro';
     nav li {
       background-color: transparent;
       width: min-content;
-      /* border-radius: 0; */
-      border-bottom: 1px solid transparent;
     }
 
     a,
@@ -227,7 +225,8 @@ import ThemeToggler from './ThemeToggler.astro';
 
     nav li:hover {
       transform: scale(0.9);
-      border-bottom: 1px solid var(--accent);
+      color: var(--accent);
+      opacity: 60%;
     }
   }
 </style>
