@@ -29,7 +29,7 @@
 
   --clr-white: 0 0% 100%;
 
-  --clr-dark: var(--clr-slate-900);
+  --clr-dark: var(--clr-slate-950);
   --clr-light: var(--clr-slate-200);
   --clr-accent: var(--clr-teal-500);
 }
