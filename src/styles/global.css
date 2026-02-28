@@ -3,35 +3,55 @@
 /* ---------------------------------- */
 
 :root {
-  --clr-slate-50: 210 40% 98%;
-  --clr-slate-100: 210 40% 96%;
-  --clr-slate-200: 214 32% 91%;
-  --clr-slate-300: 212 29% 84%;
-  --clr-slate-400: 215 23% 65%;
-  --clr-slate-500: 215 18% 47%;
-  --clr-slate-600: 215 22% 35%;
-  --clr-slate-700: 215 28% 27%;
-  --clr-slate-800: 218 36% 18%;
-  --clr-slate-900: 223 48% 11%;
-  --clr-slate-950: 229 85% 5%;
+  --color-slate-50: 210 40% 98%;
+  --color-slate-100: 210 40% 96%;
+  --color-slate-200: 214 32% 91%;
+  --color-slate-300: 212 29% 84%;
+  --color-slate-400: 215 23% 65%;
+  --color-slate-500: 215 18% 47%;
+  --color-slate-600: 215 22% 35%;
+  --color-slate-700: 215 28% 27%;
+  --color-slate-800: 218 36% 18%;
+  --color-slate-900: 223 48% 11%;
+  --color-slate-950: 229 85% 5%;
 
-  --clr-teal-50: 166 76% 97%;
-  --clr-teal-100: 168 86% 89%;
-  --clr-teal-200: 168 86% 78%;
-  --clr-teal-300: 172 81% 60%;
-  --clr-teal-400: 174 100% 42%;
-  --clr-teal-500: 174 100% 37%;
-  --clr-teal-600: 175 100% 29%;
-  --clr-teal-700: 176 100% 24%;
-  --clr-teal-800: 177 100% 19%;
-  --clr-teal-900: 176 76% 18%;
-  --clr-teal-950: 179 92% 10%;
+  --color-teal-50: 166 76% 97%;
+  --color-teal-100: 168 86% 89%;
+  --color-teal-200: 168 86% 78%;
+  --color-teal-300: 172 81% 60%;
+  --color-teal-400: 174 100% 42%;
+  --color-teal-500: 174 100% 37%;
+  --color-teal-600: 175 100% 29%;
+  --color-teal-700: 176 100% 24%;
+  --color-teal-800: 177 100% 19%;
+  --color-teal-900: 176 76% 18%;
+  --color-teal-950: 179 92% 10%;
 
-  --clr-white: 0 0% 100%;
+  --color-white: 0 0% 100%;
 
-  --clr-dark: var(--clr-slate-950);
-  --clr-light: var(--clr-slate-200);
-  --clr-accent: var(--clr-teal-500);
+  --color-dark: var(--color-slate-950);
+  --color-light: var(--color-slate-200);
+  --color-accent: var(--color-teal-500);
+
+  --text-200: 0.875rem;
+  --text-300: 1rem;
+  --text-400: 1.125rem;
+  --text-500: 1.75rem;
+  --text-600: 2rem;
+  --text-700: 3.5rem;
+  --text-800: 6.25rem;
+  --text-900: 9.375rem;
+
+  --font-family-sans: 'IBM Plex Sans', sans-serif;
+  --font-family-condensed: 'IBM Plex Sans Condensed', sans-serif;
+  --font-family-mono: 'IBM Plex Mono', monospace;
+
+  --tracking-xs: -0.05em;
+  --tracking-sm: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-lg: 0.025em;
+  --tracking-xl: 0.05em;
+  --tracking-2xl: 0.1em;
 }
 
 /* ---------------------------------- */
@@ -111,29 +131,89 @@ select {
 /* Colors */
 
 .bg-dark {
-  background-color: hsl(var(--clr-dark));
+  background-color: hsl(var(--color-dark));
 }
-
 .bg-light {
-  background-color: hsl(var(--clr-light));
+  background-color: hsl(var(--color-light));
 }
-
 .bg-white {
-  background-color: hsl(var(--clr-white));
+  background-color: hsl(var(--color-white));
 }
 
-.text-dark {
-  color: hsl(var(--clr-dark));
+.color-dark {
+  color: hsl(var(--color-dark));
+}
+.color-light {
+  color: hsl(var(--color-light));
+}
+.color-white {
+  color: hsl(var(--color-white));
+}
+.color-accent {
+  color: hsl(var(--color-accent));
 }
 
-.text-light {
-  color: hsl(var(--clr-light));
+.font-sans {
+  font-family: var(--font-family-sans);
+}
+.font-condensed {
+  font-family: var(--font-family-condensed);
+}
+.font-mono {
+  font-family: var(--font-family-mono);
 }
 
-.text-white {
-  color: hsl(var(--clr-white));
+.tracking-xs {
+  letter-spacing: var(--tracking-xs);
+}
+.tracking-sm {
+  letter-spacing: var(--tracking-sm);
+}
+.tracking-normal {
+  letter-spacing: var(--tracking-normal);
+}
+.tracking-lg {
+  letter-spacing: var(--tracking-lg);
+}
+.tracking-xl {
+  letter-spacing: var(--tracking-xl);
+}
+.tracking-2xl {
+  letter-spacing: var(--tracking-2xl);
 }
 
-.text-accent {
-  color: hsl(var(--clr-accent));
+.uppercase {
+  text-transform: uppercase;
+}
+
+.text-200 {
+  font-size: var(--text-200);
+}
+.text-300 {
+  font-size: var(--text-300);
+}
+.text-400 {
+  font-size: var(--text-400);
+}
+.text-500 {
+  font-size: var(--text-500);
+}
+.text-600 {
+  font-size: var(--text-600);
+}
+.text-700 {
+  font-size: var(--text-700);
+}
+.text-800 {
+  font-size: var(--text-800);
+}
+.text-900 {
+  font-size: var(--text-900);
+}
+
+.text-600,
+.text-700,
+.text-800,
+.text-900 {
+  line-height: 1.1;
 }
