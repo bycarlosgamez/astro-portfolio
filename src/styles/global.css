@@ -240,6 +240,10 @@ select {
   line-height: 1.1;
 }
 
+/* ---------------------------------- */
+/* Component                */
+/* ---------------------------------- */
+
 .numbered-title {
   font-family: var(--font-family-condensed);
   font-size: var(--text-500);
@@ -251,4 +255,35 @@ select {
     margin-right: 0.5em;
     font-weight: 700;
   }
+}
+
+.button-large {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 0 2em;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  text-decoration: none;
+}
+
+.button-large::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: hsl(var(--color-white) / 0.15);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
+  transition:
+    opacity 500ms linear,
+    transform 750ms ease-in-out;
+}
+
+.button-large:hover::after,
+.button-large:focus::after {
+  opacity: 1;
+  transform: scale(1.5);
 }
