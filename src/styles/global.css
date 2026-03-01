@@ -307,7 +307,9 @@ select {
 
 .underline-indicators {
   & > * {
+    cursor: pointer;
     padding: var(--underline-gap, 1em) 0;
+    border: 0;
     border-bottom: 0.2rem solid hsl(var(--color-white) / 0);
   }
 
@@ -316,7 +318,13 @@ select {
     border-color: hsl(var(--color-white) / 0.5);
   }
 
-  & > .active {
+  & > .active,
+  > [aria-selected='true'] {
+    color: hsl(var(--color-white) / 1);
     border-color: hsl(var(--color-white) / 1);
   }
+}
+
+.tab-list {
+  --gap: 2rem;
 }
