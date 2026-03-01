@@ -347,3 +347,28 @@ select {
     background-color: hsl(var(--color-white) / 1);
   }
 }
+
+.number-indicators {
+  & > * {
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    background-color: hsl(var(--color-dark));
+    color: hsl(var(--color-white));
+    border: 0.2rem solid hsl(var(--color-white) / 0.25);
+    border-radius: 50%;
+    width: 3em;
+    aspect-ratio: 1;
+  }
+
+  & > *:hover,
+  & > *:focus {
+    border-color: hsl(var(--color-white) / 1);
+  }
+
+  & > [aria-selected='true'] {
+    border-color: hsl(var(--color-white) / 0.25);
+    background-color: hsl(var(--color-white));
+    color: hsl(var(--color-dark));
+  }
+}
