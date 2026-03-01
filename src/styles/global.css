@@ -314,7 +314,7 @@ select {
   }
 
   & > *:hover,
-  > *:focus {
+  & > *:focus {
     border-color: hsl(var(--color-white) / 0.5);
   }
 
@@ -327,4 +327,23 @@ select {
 
 .tab-list {
   --gap: 2rem;
+}
+
+.dot-indicators {
+  & > * {
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+    padding: 0.5em;
+    background-color: hsl(var(--color-white) / 0.25);
+  }
+
+  & > *:hover,
+  & > *:focus {
+    background-color: hsl(var(--color-white) / 0.5);
+  }
+
+  & > [aria-selected='true'] {
+    background-color: hsl(var(--color-white) / 1);
+  }
 }
