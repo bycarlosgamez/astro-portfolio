@@ -1,65 +1,27 @@
 ---
-const profilePicture = 'https://i.imgur.com/umBZPqd.png';
+
 ---
 
-<section>
-  <div class='profile'>
-    <img
-      alt="bycarlosgamez's website"
-      class='profile__picture'
-      src={profilePicture}
-      height='200px'
-      width='200px'
-    />
-
-    <div class='profile__details'>
-      <h1>Carlos Gamez</h1>
-      <h2 class='accent'>
-        I design systems and build in the browser to solve the right problems,
-        not just ship features.
-      </h2>
-      <p>
-        I’m a designer who codes, not to be an engineer, but because code is my
-        favorite design tool. I love the technical side and know my way around
-        front-end development, but I always start with the user. I use Figma to
-        explore and document ideas, but I bring them to life in the browser. I
-        care about craft, usability, and building things that solve problems.
-      </p>
-    </div>
+<div class='grid-container grid-container--home'>
+  <div class='flow'>
+    <h1 class='color-light text-500 uppercase font-condensed tracking-xl'>
+      Hey, I'm <span
+        class='text-900 color-white font-mono block'
+        style='margin-inline-start: -.13em;'>Carlos</span
+      >
+    </h1>
+    <p>
+      I’m a Design Engineer who brings ideas to life by blending design and
+      engineering. I build design systems and prototype experiences from concept
+      to launch, combining strong visual design with hands-on frontend
+      development.
+    </p>
   </div>
-</section>
-
-<style>
-  .profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 1rem 0 3rem 0;
-  }
-
-  .profile__details {
-    flex: 1 0 300px;
-  }
-
-  .profile__details > h1 {
-    margintop: 0;
-  }
-
-  .profile__picture {
-    border-radius: 50%;
-    margin: 0 2rem 1rem 0;
-  }
-
-  .accent {
-    color: var(--accent);
-  }
-
-  h2 {
-    font-weight: bold;
-  }
-  p {
-    color: var(--grey-400);
-    line-height: 1.5rem;
-  }
-</style>
+  <div>
+    <a
+      href='/experiments'
+      class='button-large uppercase font-mono color-dark text-600 bg-white'
+      >Explore</a
+    >
+  </div>
+</div>

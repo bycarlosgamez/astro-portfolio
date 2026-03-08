@@ -1,41 +1,8 @@
 ---
 import Main from '../layouts/Main.astro';
 import Hero from '../components/Hero.astro';
-import Cards from '../components/Cards.astro';
 ---
 
 <Main title='Carlos Gamez | Homepage'>
   <Hero />
-
-  <h2>Feature projects</h2>
-  <Cards
-    cards={[
-      {
-        to: 'case-studies/form-redesign',
-        title:
-          'Redesigning a contract upload form that actually helps, not frustrates',
-        gradientFrom: '#818cf8',
-        gradientTo: '#d8b4fe',
-        poster: 'images/form.png',
-        content:
-          'I redesigned a long and unclear Django-generated contract upload form into a streamlined and reusable experience using systemized components and clear visual hierarchy. The original form overwhelmed users with poorly structured fields and little feedback. I focused on improving clarity, flow, and usability while aligning it with our internal UI standards. The new version became a foundation for other form-heavy workflows across the CMS.',
-      },
-      {
-        to: 'case-studies/design-system',
-        title: 'Karass DS: building a real design system from the ground up',
-        gradientFrom: '#fde68a',
-        gradientTo: '#fca5a5',
-        poster: 'images/ds.png',
-        content:
-          'I approached the creation of Karass DS as an exercise in designing truly reusable components, informed by previous experience working with scattered, one-off UI implementations. I identified common patterns across the product — from buttons to complex form fields — and rebuilt them as flexible, prop-driven components with clear API design. Every component was documented in Storybook with use cases, states, and variants, making them easy to adopt and scale',
-      },
-      // {
-      //   to: 'case-studies/fimga-design',
-      //   title: 'Design System (Figma)',
-      //   gradientFrom: '#6ee7b7',
-      //   gradientTo: '#9333ea',
-      //   poster: 'images/ds.png',
-      // },
-    ]}
-  />
 </Main>
