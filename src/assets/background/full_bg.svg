@@ -1,0 +1,19 @@
+<svg viewBox="-150 -150 900 900" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="#d1d5db" stroke-width="1" fill="none" stroke-dasharray="6 8" opacity="0.35">
+<circle cx="300" cy="300" r="260"></circle>
+<circle cx="300" cy="300" r="320"></circle>
+<ellipse cx="300" cy="300" rx="360" ry="220"></ellipse>
+<ellipse cx="300" cy="300" rx="420" ry="260"></ellipse>
+</g>
+
+<g stroke="#d1d5db" fill="none">
+
+<circle cx="300" cy="300" r="40" stroke-width="1.3" stroke-dasharray="3 4"></circle>
+<circle cx="300" cy="300" r="65" stroke-width="1.3" stroke-dasharray="6 7"></circle>
+<circle cx="300" cy="300" r="105" stroke-width="1.3"></circle>
+<circle cx="300" cy="300" r="170" stroke-width="1.3" stroke-dasharray="10 10"></circle>
+
+</g>
+
+</svg>
