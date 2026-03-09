@@ -1,0 +1,164 @@
+---
+
+---
+
+<div class='background-graphics'>
+  <!-- outer orbital guides -->
+  <img
+    src='/background/ellipse_420_260_dashed.svg'
+    class='ring ring-orbit-1'
+    alt=''
+    aria-hidden='true'
+  />
+
+  <img
+    src='/background/ellipse_360_220_dashed.svg'
+    class='ring ring-orbit-2'
+    alt=''
+    aria-hidden='true'
+  />
+
+  <!-- outer rings -->
+  <img
+    src='/background/circle_320_dashed.svg'
+    class='ring ring-outer-1'
+    alt=''
+    aria-hidden='true'
+  />
+
+  <img
+    src='/background/circle_260_dashed.svg'
+    class='ring ring-outer-2'
+    alt=''
+    aria-hidden='true'
+  />
+
+  <!-- gear rings -->
+  <img
+    src='/background/circle_170_dash1010.svg'
+    class='ring ring-gear-1'
+    alt=''
+    aria-hidden='true'
+  />
+
+  <img
+    src='/background/circle_105_solid.svg'
+    class='ring ring-gear-2'
+    alt=''
+    aria-hidden='true'
+  />
+
+  <!-- inner core -->
+  <img
+    src='/background/circle_65_dash67.svg'
+    class='ring ring-core-1'
+    alt=''
+    aria-hidden='true'
+  />
+
+  <img
+    src='/background/circle_40_dash34.svg'
+    class='ring ring-core-2'
+    alt=''
+    aria-hidden='true'
+  />
+</div>
+
+<style>
+  /* -------------------------------- */
+  /* HERO GRAPHICS WRAPPER */
+  /* -------------------------------- */
+
+  .background-graphics {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    min-width: 90rem;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+  }
+  @media (min-width: 45em) {
+    .background-graphics {
+      left: 100%;
+      top: -20%;
+      transform: translateX(minmax(100%, 130%));
+      min-width: 95rem;
+    }
+  }
+
+  @media (min-width: 75em) {
+    .background-graphics {
+      left: 80%;
+      top: -45%;
+      min-width: 120rem;
+    }
+  }
+
+  .ring {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    transform-origin: center;
+    opacity: 0.35;
+  }
+
+  /*  MECHANICAL MOTION */
+
+  @keyframes rotateSlow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotateReverse {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  .ring-orbit-1 {
+    animation: rotateReverse 350s linear infinite;
+  }
+
+  .ring-orbit-2 {
+    animation: rotateSlow 100s linear infinite;
+  }
+
+  .ring-outer-1 {
+    animation: rotateSlow 220s linear infinite;
+  }
+
+  .ring-outer-2 {
+    animation: rotateReverse 190s linear infinite;
+  }
+
+  .ring-gear-1 {
+    animation: rotateSlow 160s linear infinite;
+  }
+
+  .ring-gear-2 {
+    animation: rotateSlow 140s linear infinite;
+  }
+
+  .ring-gear-3 {
+    animation: rotateReverse 80s linear infinite;
+  }
+
+  .ring-core-1 {
+    animation: rotateSlow 80s linear infinite;
+  }
+
+  .ring-core-2 {
+    animation: rotateReverse 100s linear infinite;
+  }
+</style>
