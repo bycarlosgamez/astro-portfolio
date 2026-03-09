@@ -167,6 +167,11 @@ select {
   }
 }
 
+.grid-container--home {
+  position: relative;
+  overflow: hidden;
+}
+
 @media (min-width: 45em) {
   .grid-container {
     text-align: left;
@@ -434,17 +439,8 @@ select {
   }
 }
 
-/* ---------------------------------- */
-/* Page specific                      */
-/* ---------------------------------- */
-
-body {
-  background-size: cover;
-  background-position: bottom center;
-}
-
-/* Home */
-
 .home {
-  background-image: url(../assets/background/full_bg.svg);
+  position: relative;
+
+  overflow: hidden;
 }
