@@ -115,6 +115,8 @@ body {
 
   display: grid;
   grid-template-rows: min-content 1fr;
+
+  overflow: hidden;
 }
 
 img,
@@ -169,7 +171,7 @@ select {
 
 .grid-container--home {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 @media (min-width: 45em) {
@@ -354,23 +356,6 @@ select {
   transform: scale(1.5);
 }
 
-.nav-primary {
-  --gap: 8rem;
-  --underline-gap: 2rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  & a {
-    text-decoration: none;
-  }
-
-  & a span {
-    margin-right: 0.5em;
-    font-weight: 700;
-  }
-}
-
 .underline-indicators {
   & > * {
     cursor: pointer;
@@ -442,5 +427,5 @@ select {
 .home {
   position: relative;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 }

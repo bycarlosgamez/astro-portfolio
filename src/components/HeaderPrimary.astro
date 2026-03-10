@@ -4,7 +4,7 @@
 
 <header class='header-primary flex'>
   <div>
-    <img src='../Logo.svg' alt='Carlos logo' />
+    <img class='logo' src='../Logo.svg' alt='Carlos logo' />
   </div>
   <button
     class='mobile-nav-toggle'
@@ -12,7 +12,11 @@
     aria-expanded='false'><span class='sr-only'>Menu</span></button
   >
   <nav>
-    <ul id='primary-navigation' class='nav-primary underline-indicators flex'>
+    <ul
+      id='primary-navigation'
+      data-visible='false'
+      class='nav-primary underline-indicators flex'
+    >
       <li class='active'>
         <a class='font-condensed uppercase color-white tracking-xl' href='/'
           ><span>00</span>Home</a
@@ -40,4 +44,149 @@
   </nav>
 </header>
 
-<style></style>
+<style>
+  .header-primary {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    margin: 2rem clamp(1.5rem, 5vw, 3.5rem);
+  }
+
+  .nav-primary {
+    --gap: clamp(1.5rem, 5vw, 3.5rem);
+    --underline-gap: 2rem;
+    position: block;
+    background: hsl(var(--color-dark) / 0.95);
+
+    border-radius: 1em 0 0 1em;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & a {
+      text-decoration: none;
+    }
+
+    & a > span {
+      margin-right: 0.5em;
+      font-weight: 700;
+    }
+  }
+
+  .mobile-nav-toggle {
+    display: none;
+  }
+
+  @supports (backdrop-filter: blur(1.5rem)) {
+    .nav-primary {
+      background: hsl(var(--color-white) / 0.05);
+      backdrop-filter: blur(1.5rem);
+    }
+  }
+
+  @media (max-width: 35rem) {
+    .nav-primary {
+      --underline-gap: 0.5rem;
+      position: fixed;
+      z-index: 1000;
+      inset: 0 0 0 30%;
+
+      list-style: none;
+      padding: min(20rem, 15vh) 2rem;
+      margin: 0;
+      flex-direction: column;
+
+      transform: translateX(100%);
+      transition: transform 500ms ease-in-out;
+
+      &.underline-indicators > .active {
+        border: 0;
+      }
+
+      &[data-visible='true'] {
+        transform: translateX(0);
+      }
+    }
+
+    .mobile-nav-toggle {
+      display: block;
+      position: absolute;
+      z-index: 2000;
+      right: 1rem;
+      top: 2rem;
+      background: transparent;
+      background-image: url(/icons/icon-hamburger.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 1.5rem;
+      aspect-ratio: 1;
+      border: 0;
+
+      &[aria-expanded='true'] {
+        background-image: url(/icons/icon-close.svg);
+      }
+
+      &:focus-visible {
+        outline: 5px solid white;
+        outline-offset: 5px;
+      }
+    }
+  }
+
+  @media (min-width: 35em) {
+    .nav-primary {
+      padding-inline: clamp(3rem, 7vw, 7rem);
+    }
+  }
+
+  @media (min-width: 35em) and (max-width: 44.999em) {
+    .nav-primary {
+      & a > span {
+        display: none;
+      }
+    }
+  }
+
+  @media (min-width: 45em) {
+    .header-primary::after {
+      content: '';
+      display: block;
+      position: relative;
+      height: 1px;
+      width: 100%;
+      opacity: 0.25;
+      background: hsl(var(--color-accent));
+      order: 1;
+      z-index: 10;
+      margin-right: -2.5rem;
+    }
+
+    nav {
+      order: 2;
+    }
+
+    .nav-primary {
+      margin-block: 2rem;
+    }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector('.nav-primary');
+  const navToggle = document.querySelector('.mobile-nav-toggle');
+
+  navToggle?.addEventListener('click', () => {
+    const visible = nav?.getAttribute('data-visible');
+
+    if (visible === 'false') {
+      nav?.setAttribute('data-visible', 'true');
+      navToggle?.setAttribute('aria-expanded', 'true');
+    } else {
+      nav?.setAttribute('data-visible', 'false');
+      navToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
