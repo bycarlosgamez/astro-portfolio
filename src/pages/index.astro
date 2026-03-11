@@ -1,10 +1,54 @@
 ---
 import Main from '../layouts/Main.astro';
-import Hero from '../components/Hero.astro';
 import Background from '../components/Background.astro';
 ---
 
-<Main title='Carlos Gamez | Homepage'>
+<Main title='Carlos Gamez | Homepage' bodyClass='home'>
   <Background />
-  <Hero />
+  <main id='main' class='grid-container grid-container--home'>
+    <div class='flow'>
+      <h1 class='color-light text-500 uppercase font-condensed tracking-xl'>
+        Hey, I'm <span
+          class='text-900 color-white font-mono block'
+          style='margin-inline-start: -.13em;'
+          aria-hidden='true'>C∆RLOS</span
+        >
+        <span class='sr-only'>Carlos</span>
+      </h1>
+      <p>
+        I’m a Design Engineer who brings ideas to life by blending design and
+        engineering. I build design systems and prototype experiences from
+        concept to launch, combining strong visual design with hands-on frontend
+        development.
+      </p>
+    </div>
+    <div>
+      <a
+        href='/experiments'
+        class='button-large uppercase font-mono color-dark text-600 bg-white'
+        >Explore</a
+      >
+    </div>
+  </main>
 </Main>
+
+<style>
+  .grid-container--home {
+    position: relative;
+  }
+
+  @media (min-width: 45em) {
+    .grid-container--home {
+      padding-bottom: max(6rem, 20vh);
+      align-items: end;
+
+      & > *:first-child {
+        grid-column: 2;
+      }
+
+      & > *:last-child {
+        grid-column: 3;
+      }
+    }
+  }
+</style>

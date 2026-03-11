@@ -1,0 +1,105 @@
+---
+import ExperimentCard from '../../components/ExperimentCard.astro';
+import Main from '../../layouts/Main.astro';
+---
+
+<Main title='Carlos Gamez | Experiments' bodyClass='experiments'>
+  <main id='main' class='grid-container grid-container--experiments flow'>
+    <h1 class='numbered-title'>
+      <span aria-hidden='true'>01</span>Pick an experiment
+    </h1>
+
+    <img src='https://placehold.co/400' alt='the image' />
+
+    <div class='tab-list underline-indicators flex'>
+      <button
+        aria-selected='true'
+        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
+        >Experiments</button
+      >
+      <button
+        aria-selected='false'
+        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
+        >Design</button
+      >
+      <button
+        aria-selected='false'
+        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
+        >Development</button
+      >
+      <button
+        aria-selected='false'
+        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
+        >Development</button
+      >
+    </div>
+
+    <section class='experiment-section'>
+      <ExperimentCard
+        title='Moon'
+        description='See our planet as you’ve never seen it before. A perfect relaxing trip away to help 
+      regain perspective and come back refreshed. While you’re there, take in some history 
+      by visiting the Luna 2 and Apollo 11 landing sites.'
+        infoTitle='avg distane'
+        p2='lorem asdfasdfasdf'
+        infoTitle2='adsfasdff'
+        p3='dadfsdfsdfasdfa asdf asdfa sd'
+      />
+    </section>
+  </main>
+</Main>
+
+<style>
+  .grid-container--experiments {
+    --flow-space: 2rem;
+    grid-template-areas:
+      'title'
+      'image'
+      'tabs'
+      'content';
+
+    & > .numbered-title {
+      grid-area: title;
+    }
+
+    & > img {
+      grid-area: image;
+      max-width: 60%;
+    }
+
+    & > .tab-list {
+      grid-area: tabs;
+    }
+
+    & > .experiment-section {
+      grid-area: content;
+    }
+  }
+
+  @media (min-width: 35em) {
+    .grid-container--experiments {
+      padding-bottom: max(15rem, 20vh);
+      align-items: end;
+
+      & .numbered-title {
+        justify-self: start;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  @media (min-width: 45em) {
+    .grid-container--experiments {
+      justify-items: start;
+      align-content: start;
+      grid-template-areas:
+        '. title title .'
+        '. image tabs .'
+        '. image content .';
+
+      & > img {
+        max-width: 90%;
+      }
+    }
+  }
+</style>

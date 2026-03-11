@@ -1,0 +1,59 @@
+---
+import { string } from 'astro:schema';
+
+type Props = {
+  title: string;
+  description: string;
+  infoTitle: string;
+  p2: string;
+  infoTitle2: string;
+  p3: string;
+};
+
+const { title, description, infoTitle, p2, infoTitle2, p3 } = Astro.props;
+---
+
+<article class='experiment-info'>
+  <h2 class='text-800 uppercase font-mono'>{title}</h2>
+  <p>
+    {description}
+  </p>
+
+  <div class='experiment-meta flex'>
+    <div>
+      <h3 class='color-light text-200 uppercase'>{infoTitle}</h3>
+      <p class='font-mono uppercase'>{p2}</p>
+    </div>
+    <div>
+      <h3 class='color-light text-200 uppercase'>{infoTitle2}</h3>
+      <p class='font-mono uppercase'>{p3}</p>
+    </div>
+  </div>
+</article>
+
+<style>
+  .experiment-meta {
+    flex-direction: column;
+    border-top: 1px solid hsl(var(--color-white) / 0.1);
+    padding-top: 2.5rem;
+    margin-top: 2.5rem;
+
+    & p {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (min-width: 35em) {
+    .experiment-meta {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+  }
+
+  @media (min-width: 45em) {
+    .experiment-meta {
+      --gap: min(6vw, 6rem);
+      justify-content: start;
+    }
+  }
+</style>
