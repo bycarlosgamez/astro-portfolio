@@ -148,7 +148,11 @@ select {
 }
 
 .flow > * + * {
-  margin-block-start: var(--flow-space, 1em);
+  margin-block-start: var(--flow-space, 1rem);
+}
+
+.flow-small {
+  --flow-space: 0.5rem;
 }
 
 .container {
@@ -276,11 +280,27 @@ select {
   text-transform: uppercase;
   letter-spacing: var(--tracking-2xl);
 
-  & span {
+  & > span:first-child {
     color: hsl(var(--color-white) / 0.25);
     margin-right: 0.5em;
     font-weight: 700;
   }
+}
+
+.numbered-title--compact {
+  font-size: var(--text-300);
+  letter-spacing: var(--tracking-xl);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.experiment-page-title {
+  font-family: var(--font-family-condensed);
+  font-size: var(--text-500);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-2xl);
+  font-weight: 400;
 }
 
 .button-large {
@@ -318,9 +338,10 @@ select {
 .underline-indicators {
   & > * {
     cursor: pointer;
-    padding: var(--underline-gap, 1em) 0;
+    padding: var(--underline-gap, 0.5rem) 0;
     border: 0;
     border-bottom: 0.2rem solid hsl(var(--color-white) / 0);
+    background-color: transparent;
   }
 
   & > *:hover,
@@ -389,6 +410,44 @@ select {
   overflow: hidden;
 }
 
+body.experiments {
+  --experiment-sidebar-width: 0px;
+  --experiment-content-max: 48rem;
+  --experiment-layout-gutter: 1rem;
+  --experiment-mobile-bar-height: 3.25rem;
+  --experiment-shell-height: calc(100dvh - clamp(5.5rem, 14vh, 9.5rem));
+}
+
+body.experiments.experiments-index {
+  overflow: hidden;
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+@media (min-width: 45em) {
+  body.experiments {
+    --experiment-sidebar-width: min(16rem, 38vw);
+    --experiment-content-max: 40rem;
+    --experiment-layout-gutter: clamp(1rem, 2vw, 1.5rem);
+  }
+}
+
+@media (min-width: 63em) {
+  body.experiments {
+    --experiment-sidebar-width: 20rem;
+    --experiment-content-max: 48rem;
+    --experiment-layout-gutter: clamp(1rem, 3vw, 2rem);
+  }
+}
+/* 
+.experiments {
+  background-image: url(./background/full_bg.svg);
+}
+
+.projects {
+  background-image: url(./background/full_bg.svg);
+} */
+
 /* ---------------------------------- */
 /* Layout                             */
 /* ---------------------------------- */
@@ -400,12 +459,8 @@ select {
   padding-inline: 1rem;
   padding-bottom: 3rem;
 
-  /* & p:not([class]) {
-    max-width: 55ch;
-  } */
-
-  & * {
-    max-width: 55ch;
+  & p:not([class]) {
+    max-width: 50ch;
   }
 }
 

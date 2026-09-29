@@ -2,41 +2,71 @@
 import Main from '../../layouts/Main.astro';
 ---
 
-<Main title='Carlos Gamez | About'>
-  <p>
-    I began my career in technology as a product designer, working closely with
-    small startups. This experience allowed me to refine my design skills while
-    learning to code, revealing that coding was the crucial piece missing from
-    my creative process.
-  </p>
+<Main title='Carlos Gamez | About' bodyClass='about'>
+  <main class='grid-container grid-container--about flow'>
+    <p class='p-1'>I’ve always been drawn to making things.</p>
 
-  <p>
-    My studies in industrial design emphasized the importance of understanding
-    materials and context, which I sought to apply in the digital realm.
-    Recognizing the transformative power of coding, I immersed myself in
-    development, using my design background to foster effective <strong
-      class='accent'>communication between designers and developers</strong
-    >. This perspective enabled me to bridge the gap between creative vision and
-    technical execution, ensuring projects were visually appealing and
-    functionally robust.
-  </p>
+    <p class='p-2'>
+      Sometimes I make music. I’ll spend hours adjusting small details like a
+      tone, a rhythm, or a transition, just to get something to feel right. For
+      me, it’s more about listening closely than finishing quickly. Other times,
+      I focus on more physical projects. I like building wooden furniture and
+      return to it whenever I can. The work is slower. You measure, cut, adjust,
+      and sometimes start over. It feels good to work with your hands and watch
+      something come together piece by piece.
+    </p>
 
-  <p>
-    With over seven years of experience as a frontend developer, I specialize in
-    creating scalable and accessible user interfaces using technologies like
-    <strong class='accent'> ReactJs / NextJs, TypeScript, and Tailwind</strong>.
-    My passion for optimizing front-end workflows drives me to deliver
-    high-quality, production-ready code. I collaborate closely with engineering
-    and product teams to craft seamless user experiences while focusing on <strong
-      class='accent'>UI/UX design principles</strong
-    >.
-  </p>
+    <p class='p-3'>
+      I also spend a lot of time outside with my four huskies. Two of them are
+      rescues. They’re chaotic in the best way. Being with them helps me get out
+      of my head, reminds me to be patient, and not to overthink everything. I
+      guess all of that says something about how I see things.
+    </p>
 
-  <p>
-    Through this journey, I have evolved into a key player in development
-    environments. My experiences have instilled a deep appreciation for
-    collaboration and continuous learning. As I advance in my career, I remain
-    dedicated to delivering impactful products that resonate with users while
-    embracing new technologies and methodologies that enhance my skills.
-  </p>
+    <p class='p-4'>
+      I like paying attention to details, but I’m also comfortable with things
+      taking time. I enjoy the process as much as the outcome. I often return to
+      projects, refining, rebuilding, and rethinking them until they feel right.
+    </p>
+  </main>
 </Main>
+
+<style>
+  .grid-container--about {
+    --flow-space: 2rem;
+    text-align: start;
+    grid-template-areas:
+      'p1'
+      'p2'
+      'p3'
+      'p4';
+
+    & .p-1 {
+      grid-area: p1;
+    }
+
+    & .p-2 {
+      grid-area: p2;
+    }
+
+    & .p-3 {
+      grid-area: p3;
+    }
+
+    & .p-4 {
+      grid-area: p4;
+    }
+  }
+
+  @media (min-width: 45em) {
+    .grid-container--about {
+      justify-items: start;
+      align-content: start;
+      grid-template-areas:
+        '. p1 p1 .'
+        '. p2 p2 .'
+        '. p3 p3 .'
+        '. p4 p4 .';
+    }
+  }
+</style>

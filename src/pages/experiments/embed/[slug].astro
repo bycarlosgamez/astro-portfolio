@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import { embedModules, embedPathForSlug, hasEmbed } from '../../../experiments/embed-registry';
+import ExperimentEmbed from '../../../layouts/ExperimentEmbed.astro';
+
+export async function getStaticPaths() {
+  const live = await getCollection('experiments', ({ data }) => data.preview === 'live');
+
+  return live.filter((entry) => hasEmbed(entry.id)).map((entry) => ({
+    params: { slug: entry.id },
+    props: { slug: entry.id },
+  }));
+}
+
+const { slug } = Astro.props;
+const load = embedModules[embedPathForSlug(slug)];
+if (!load) {
+  throw new Error(`Missing embed component for "${slug}"`);
+}
+const { default: Demo } = await load();
+---
+
+<ExperimentEmbed>
+  <Demo />
+</ExperimentEmbed>

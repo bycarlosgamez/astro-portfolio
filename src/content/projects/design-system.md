@@ -1,8 +1,8 @@
 ---
-layout: ../../layouts/Portfolio.astro
 title: 'From Inconsistency to Infrastructure: Creating a Design System That Scales'
 subtitle: 'Created a full design system and documented it in Storybook to drive consistency, accessibility, and development velocity across our product.'
 poster: '/images/ds.png'
+order: 1
 ---
 
 ## Problem Statement

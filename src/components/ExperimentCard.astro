@@ -1,34 +1,78 @@
 ---
-import { string } from 'astro:schema';
+type MetaItem = { label: string; value: string };
 
 type Props = {
   title: string;
   description: string;
-  infoTitle: string;
-  p2: string;
-  infoTitle2: string;
-  p3: string;
+  meta?: MetaItem[];
+  externalUrl?: string;
+  detailHref?: string;
+  demoPage?: boolean;
 };
 
-const { title, description, infoTitle, p2, infoTitle2, p3 } = Astro.props;
+const { title, description, meta = [], externalUrl, detailHref, demoPage = false } =
+  Astro.props;
 ---
 
-<article class='experiment-info'>
+<article class='experiment-info flow'>
   <h2 class='text-800 uppercase font-mono'>{title}</h2>
   <p>
     {description}
   </p>
 
-  <div class='experiment-meta flex'>
-    <div>
-      <h3 class='color-light text-200 uppercase'>{infoTitle}</h3>
-      <p class='font-mono uppercase'>{p2}</p>
-    </div>
-    <div>
-      <h3 class='color-light text-200 uppercase'>{infoTitle2}</h3>
-      <p class='font-mono uppercase'>{p3}</p>
-    </div>
-  </div>
+  {
+    meta.length > 0 && (
+      <div class='experiment-meta flex'>
+        {meta.map((item) => (
+          <div>
+            <h3 class='color-light text-200 uppercase'>{item.label}</h3>
+            <p class='font-mono uppercase'>{item.value}</p>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    !demoPage && (detailHref || externalUrl) && (
+      <p class='experiment-actions'>
+        {
+          detailHref && (
+            <a class='experiment-preview__link font-mono uppercase' href={detailHref}>
+              Open demo →
+            </a>
+          )
+        }
+        {
+          externalUrl && (
+            <a
+              class='font-mono uppercase color-light'
+              href={externalUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              View external ↗
+            </a>
+          )
+        }
+      </p>
+    )
+  }
+
+  {
+    demoPage && externalUrl && (
+      <p>
+        <a
+          class='font-mono uppercase color-light'
+          href={externalUrl}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          View source ↗
+        </a>
+      </p>
+    )
+  }
 </article>
 
 <style>
@@ -41,6 +85,26 @@ const { title, description, infoTitle, p2, infoTitle2, p3 } = Astro.props;
     & p {
       font-size: 1.75rem;
     }
+  }
+
+  .experiment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.75rem;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .experiment-actions .experiment-preview__link {
+    color: hsl(var(--color-white));
+    text-decoration: none;
+    border-bottom: 0.15rem solid hsl(var(--color-white) / 0.35);
+    padding-bottom: 0.15rem;
+  }
+
+  .experiment-actions .experiment-preview__link:hover,
+  .experiment-actions .experiment-preview__link:focus-visible {
+    border-color: hsl(var(--color-white));
   }
 
   @media (min-width: 35em) {

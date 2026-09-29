@@ -1,5 +1,19 @@
 ---
+type NavSection = 'home' | 'experiments' | 'projects' | 'about';
 
+type Props = {
+  currentSection?: NavSection;
+};
+
+const { currentSection } = Astro.props;
+
+const navItems: { id: NavSection; href: string; index: string; label: string }[] =
+  [
+    { id: 'home', href: '/', index: '00', label: 'Home' },
+    { id: 'experiments', href: '/experiments', index: '01', label: 'Experiments' },
+    { id: 'projects', href: '/projects', index: '02', label: 'Projects' },
+    { id: 'about', href: '/about', index: '03', label: 'About' },
+  ];
 ---
 
 <header class='header-primary flex'>
@@ -17,29 +31,22 @@
       data-visible='false'
       class='nav-primary underline-indicators flex'
     >
-      <li class='active'>
-        <a class='font-condensed uppercase color-white tracking-xl' href='/'
-          ><span aria-hidden='true'>00</span>Home</a
-        >
-      </li>
-      <li>
-        <a
-          class='font-condensed uppercase color-white tracking-xl'
-          href='/experiments'><span aria-hidden='true'>01</span>Experiments</a
-        >
-      </li>
-      <li>
-        <a
-          class='font-condensed uppercase color-white tracking-xl'
-          href='/projects'><span aria-hidden='true'>02</span>Projects</a
-        >
-      </li>
-      <li>
-        <a
-          class='font-condensed uppercase color-white tracking-xl'
-          href='/about'><span aria-hidden='true'>03</span>About</a
-        >
-      </li>
+      {
+        navItems.map((item) => {
+          const isActive = item.id === currentSection;
+          return (
+            <li class:list={{ active: isActive }}>
+              <a
+                class='font-condensed uppercase color-white tracking-xl'
+                href={item.href}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <span aria-hidden='true'>{item.index}</span>{item.label}
+              </a>
+            </li>
+          );
+        })
+      }
     </ul>
   </nav>
 </header>
@@ -66,12 +73,20 @@
     padding: 0;
     margin: 0;
 
+    & li {
+      flex-shrink: 0;
+    }
+
     & a {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.5em;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     & a > span {
-      margin-right: 0.5em;
+      margin-right: 0;
       font-weight: 700;
     }
   }
@@ -102,8 +117,24 @@
       transform: translateX(100%);
       transition: transform 500ms ease-in-out;
 
+      & li:not(.active) > a {
+        color: hsl(var(--color-white) / 0.4);
+      }
+
       &.underline-indicators > .active {
-        border: 0;
+        border-bottom-color: transparent;
+        border-left: 0.2rem solid hsl(var(--color-white));
+        padding-inline-start: 0.75rem;
+      }
+
+      &.underline-indicators > li:not(.active):hover,
+      &.underline-indicators > li:not(.active):focus-within {
+        border-bottom-color: transparent;
+      }
+
+      &.underline-indicators > li:not(.active):hover > a,
+      &.underline-indicators > li:not(.active):focus-within > a {
+        color: hsl(var(--color-white) / 0.65);
       }
 
       &[data-visible='true'] {

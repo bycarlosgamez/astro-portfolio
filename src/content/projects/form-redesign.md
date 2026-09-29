@@ -1,8 +1,8 @@
 ---
-layout: ../../layouts/Portfolio.astro
 title: 'Transforming a Lengthy Admin Form into a Scalable UX Pattern'
 subtitle: 'Redesigned and implemented a contract upload form, replacing a rigid Django-generated version with an accessible, reusable, and scalable UI.'
 poster: '/images/form.png'
+order: 2
 ---
 
 ## Problem Statement

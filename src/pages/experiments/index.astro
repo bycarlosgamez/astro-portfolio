@@ -1,105 +1,308 @@
 ---
-import ExperimentCard from '../../components/ExperimentCard.astro';
+import { getCollection } from 'astro:content';
+import ExperimentChrome from '../../components/ExperimentChrome.astro';
+import ExperimentSidebar from '../../components/ExperimentSidebar.astro';
+import ExperimentStage from '../../components/ExperimentStage.astro';
 import Main from '../../layouts/Main.astro';
+
+const MAX_SIDEBAR_EXPERIMENTS = 10;
+
+function compareFeatured(
+  a: Awaited<ReturnType<typeof getCollection<'experiments'>>>[number],
+  b: Awaited<ReturnType<typeof getCollection<'experiments'>>>[number],
+) {
+  const ao = a.data.sidebarOrder ?? 999;
+  const bo = b.data.sidebarOrder ?? 999;
+  if (ao !== bo) return ao - bo;
+  return a.data.title.localeCompare(b.data.title);
+}
+
+const experiments = (await getCollection('experiments')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+);
+
+const featured = experiments
+  .filter((e) => e.data.featured)
+  .sort(compareFeatured)
+  .slice(0, MAX_SIDEBAR_EXPERIMENTS);
+
+const experimentId = (entry: (typeof experiments)[number]) => entry.id;
+
+const defaultEntry = featured[0] ?? experiments[0];
+const defaultSlug = defaultEntry ? experimentId(defaultEntry) : '';
+const defaultTitle = defaultEntry?.data.title ?? 'Experiments';
+
+const featuredSidebar = featured.map((e) => ({
+  slug: experimentId(e),
+  title: e.data.title,
+}));
+
+const allSlugs = new Set(experiments.map((e) => experimentId(e)));
+const featuredSlugs = new Set(featured.map((e) => experimentId(e)));
+
+const titleBySlug = Object.fromEntries(
+  experiments.map((e) => [experimentId(e), e.data.title]),
+);
 ---
 
-<Main title='Carlos Gamez | Experiments' bodyClass='experiments'>
-  <main id='main' class='grid-container grid-container--experiments flow'>
-    <h1 class='numbered-title'>
-      <span aria-hidden='true'>01</span>Pick an experiment
-    </h1>
+<Main title={`Carlos Gamez | ${defaultTitle}`} bodyClass='experiments experiments-index'>
+  <div class='experiment-viewport-shell'>
+    <div
+      class:list={[
+        'experiment-layout',
+        featuredSidebar.length > 0 && 'experiment-layout--with-sidebar',
+      ]}
+    >
+      <ExperimentSidebar items={featuredSidebar} activeSlug={defaultSlug} />
 
-    <img src='https://placehold.co/400' alt='the image' />
+      <main
+        id='main'
+        class:list={[
+          'experiment-index',
+          featuredSidebar.length > 0 && 'experiment-index--with-sidebar',
+        ]}
+      >
+        <header class='experiment-index__heading'>
+          <h1 class='numbered-title numbered-title--compact experiment-index__section-title'>
+            <span aria-hidden='true'>01</span>Selected experiments
+          </h1>
+          {
+            experiments.length > 0 && (
+              <h2
+                class='text-700 font-condensed uppercase tracking-lg experiment-index__experiment-title'
+                id='experiment-active-title'
+                aria-live='polite'
+              >
+                {defaultTitle}
+              </h2>
+            )
+          }
+        </header>
 
-    <div class='tab-list underline-indicators flex'>
-      <button
-        aria-selected='true'
-        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
-        >Experiments</button
-      >
-      <button
-        aria-selected='false'
-        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
-        >Design</button
-      >
-      <button
-        aria-selected='false'
-        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
-        >Development</button
-      >
-      <button
-        aria-selected='false'
-        class='bg-dark font-condensed bg-dark uppercase color-light tracking-xl'
-        >Development</button
-      >
+        {
+          experiments.length === 0 ? (
+            <p>No experiments yet.</p>
+          ) : (
+            <div class='experiment-index__panels' id='experiment-preview-host'>
+              {
+                experiments.map((entry) => (
+                  <div
+                    class='experiment-preview-panel'
+                    data-slug={experimentId(entry)}
+                    data-title={entry.data.title}
+                    hidden={experimentId(entry) !== defaultSlug}
+                  >
+                    <ExperimentChrome
+                      description={entry.data.description}
+                      meta={entry.data.meta}
+                      externalUrl={entry.data.externalUrl}
+                      detailHref={
+                        entry.data.kind === 'demo'
+                          ? `/experiments/${experimentId(entry)}`
+                          : undefined
+                      }
+                    />
+                    <ExperimentStage
+                      preview={entry.data.preview}
+                      slug={experimentId(entry)}
+                      title={entry.data.title}
+                      thumbnail={entry.data.thumbnail}
+                    />
+                  </div>
+                ))
+              }
+            </div>
+          )
+        }
+      </main>
     </div>
+  </div>
 
-    <section class='experiment-section'>
-      <ExperimentCard
-        title='Moon'
-        description='See our planet as you’ve never seen it before. A perfect relaxing trip away to help 
-      regain perspective and come back refreshed. While you’re there, take in some history 
-      by visiting the Luna 2 and Apollo 11 landing sites.'
-        infoTitle='avg distane'
-        p2='lorem asdfasdfasdf'
-        infoTitle2='adsfasdff'
-        p3='dadfsdfsdfasdfa asdf asdfa sd'
-      />
-    </section>
-  </main>
+  <script
+    define:vars={{
+      defaultSlug,
+      defaultTitle,
+      allSlugs: [...allSlugs],
+      featuredSlugs: [...featuredSlugs],
+      titleBySlug,
+    }}
+  >
+    const panels = Array.from(document.querySelectorAll('.experiment-preview-panel'));
+    const sidebarLinks = Array.from(document.querySelectorAll('.experiment-sidebar__link'));
+    const activeTitle = document.getElementById('experiment-active-title');
+
+    function defaultExp() {
+      if (defaultSlug) return defaultSlug;
+      return panels[0]?.getAttribute('data-slug') ?? null;
+    }
+
+    function parseExp() {
+      const params = new URLSearchParams(window.location.search);
+      let exp = params.get('exp');
+      if (!exp || !allSlugs.includes(exp)) {
+        exp = defaultExp();
+      }
+      return exp;
+    }
+
+    function writeUrl(exp) {
+      const url = new URL(window.location.href);
+      if (exp) url.searchParams.set('exp', exp);
+      else url.searchParams.delete('exp');
+      history.replaceState({ exp }, '', url);
+    }
+
+    function setPageTitle(slug) {
+      const title =
+        titleBySlug[slug] ??
+        panels.find((p) => p.getAttribute('data-slug') === slug)?.getAttribute('data-title') ??
+        defaultTitle;
+      if (activeTitle) activeTitle.textContent = title;
+      document.title = `Carlos Gamez | ${title}`;
+    }
+
+    function showPreview(slug) {
+      if (!slug) return;
+      panels.forEach((panel) => {
+        panel.hidden = panel.getAttribute('data-slug') !== slug;
+      });
+    }
+
+    function setSidebarCurrent(slug) {
+      sidebarLinks.forEach((link) => {
+        const match = link.getAttribute('data-slug') === slug && featuredSlugs.includes(slug);
+        link.setAttribute('aria-current', match ? 'true' : 'false');
+      });
+    }
+
+    function activate(exp, { updateUrl = true } = {}) {
+      if (!exp) return;
+      showPreview(exp);
+      setSidebarCurrent(exp);
+      setPageTitle(exp);
+      if (updateUrl) writeUrl(exp);
+    }
+
+    sidebarLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        const slug = link.getAttribute('data-slug');
+        if (slug) activate(slug);
+      });
+    });
+
+    window.addEventListener('popstate', () => {
+      activate(parseExp(), { updateUrl: false });
+    });
+
+    activate(parseExp(), { updateUrl: true });
+  </script>
 </Main>
 
 <style>
-  .grid-container--experiments {
-    --flow-space: 2rem;
-    grid-template-areas:
-      'title'
-      'image'
-      'tabs'
-      'content';
+  .experiment-viewport-shell {
+    height: var(--experiment-shell-height);
+    max-height: var(--experiment-shell-height);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
 
-    & > .numbered-title {
-      grid-area: title;
-    }
+  .experiment-layout {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
 
-    & > img {
-      grid-area: image;
-      max-width: 60%;
-    }
-
-    & > .tab-list {
-      grid-area: tabs;
-    }
-
-    & > .experiment-section {
-      grid-area: content;
+  .experiment-layout--with-sidebar {
+    @media (min-width: 45em) {
+      display: grid;
+      grid-template-columns: var(--experiment-sidebar-width) minmax(0, 1fr);
+      column-gap: var(--experiment-layout-gutter);
+      align-items: stretch;
+      width: 100%;
     }
   }
 
-  @media (min-width: 35em) {
-    .grid-container--experiments {
-      padding-bottom: max(15rem, 20vh);
-      align-items: end;
+  .experiment-index {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    padding-inline: var(--experiment-layout-gutter);
+    max-width: var(--experiment-content-max);
+    margin-inline: auto;
+    box-sizing: border-box;
+  }
 
-      & .numbered-title {
-        justify-self: start;
-        margin-top: 2rem;
-      }
+  .experiment-index--with-sidebar {
+    @media (max-width: 44.999em) {
+      padding-bottom: calc(
+        var(--experiment-mobile-bar-height) + env(safe-area-inset-bottom, 0px) + 0.75rem
+      );
     }
+  }
+
+  .experiment-index__heading,
+  .experiment-index__panels {
+    width: min(100%, var(--experiment-content-max));
+    max-width: var(--experiment-content-max);
+    flex-shrink: 0;
+  }
+
+  .experiment-index__panels {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: var(--experiment-content-max);
+  }
+
+  .experiment-index__heading {
+    margin-bottom: 0.75rem;
+  }
+
+  .experiment-index__section-title {
+    margin: 0;
+    font-weight: 400;
+    color: hsl(var(--color-white));
+  }
+
+  .experiment-index__section-title > span:first-child {
+    color: hsl(var(--color-white) / 0.25);
+    font-weight: 600;
+  }
+
+  .experiment-index__experiment-title {
+    margin: 1.75rem 0 0;
+    color: hsl(var(--color-white));
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: var(--tracking-lg);
+  }
+
+  .experiment-preview-panel {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow: hidden;
+  }
+
+  .experiment-preview-panel[hidden] {
+    display: none !important;
   }
 
   @media (min-width: 45em) {
-    .grid-container--experiments {
-      justify-items: start;
-      align-content: start;
-      grid-template-areas:
-        '. title title .'
-        '. image tabs .'
-        '. image content .';
-
-      & > img {
-        max-width: 90%;
-      }
+    .experiment-index--with-sidebar {
+      max-width: none;
+      width: 100%;
+      margin-inline: 0;
+      padding-inline: var(--experiment-layout-gutter);
+      align-items: center;
     }
   }
 </style>

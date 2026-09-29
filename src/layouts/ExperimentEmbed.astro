@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta name='robots' content='noindex' />
+    <title>Experiment embed</title>
+  </head>
+  <body class='experiment-embed'>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  .experiment-embed {
+    margin: 0;
+    min-height: 100dvh;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: hsl(var(--color-dark));
+  }
+</style>
