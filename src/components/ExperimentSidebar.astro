@@ -4,9 +4,10 @@ type Item = { slug: string; title: string };
 type Props = {
   items: Item[];
   activeSlug: string;
+  showAllLink?: boolean;
 };
 
-const { items, activeSlug } = Astro.props;
+const { items, activeSlug, showAllLink = false } = Astro.props;
 const listId = 'experiment-sidebar-list';
 ---
 
@@ -14,14 +15,10 @@ const listId = 'experiment-sidebar-list';
   items.length > 0 && (
     <>
       <div class='experiment-sidebar-bar'>
-        <button
-          type='button'
-          class='experiment-sidebar-bar__button font-condensed uppercase tracking-xl'
-          aria-expanded='false'
-          aria-controls='experiment-sidebar-panel'
+        <div class="experiment-sidebar-bar__header"
         >
           Pick an experiment
-        </button>
+        </div>
       </div>
 
       <nav
@@ -49,9 +46,13 @@ const listId = 'experiment-sidebar-list';
             ))
           }
         </ul>
-        <a class='experiment-sidebar__all font-mono uppercase color-light' href='/experiments/all'>
-          All experiments →
-        </a>
+        {
+          showAllLink && (
+            <a class='experiment-sidebar__all font-mono uppercase color-light' href='/experiments/all'>
+              All experiments →
+            </a>
+          )
+        }
       </nav>
     </>
   )
@@ -71,7 +72,7 @@ const listId = 'experiment-sidebar-list';
 <style>
   .experiment-sidebar {
     list-style: none;
-    background: hsl(var(--color-dark) / 0.95);
+    background: hsl(var(--color-) / 0.95);
     border-radius: 0 1em 1em 0;
     padding-block: 1.25rem;
     padding-inline: clamp(1.25rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
@@ -89,13 +90,14 @@ const listId = 'experiment-sidebar-list';
 
   .experiment-sidebar__header {
     margin: 0 0 1rem;
+    color: hsl(var(--color-light));
     padding-bottom: 0.75rem;
     border-bottom: 1px solid hsl(var(--color-white) / 0.1);
     font-family: var(--font-family-mono);
-    font-size: var(--text-200);
+    font-size: var(--text-400);
+    font-weight: medium;
     text-transform: uppercase;
     letter-spacing: var(--tracking-sm);
-    color: hsl(var(--color-white) / 0.45);
     cursor: default;
     user-select: none;
   }
@@ -148,13 +150,17 @@ const listId = 'experiment-sidebar-list';
     width: 100%;
     margin-top: 1rem;
     padding-top: 0.75rem;
-    border-top: 1px solid hsl(var(--color-white) / 0.1);
+    border-top: 1px solid hsl(var(--color-white) / 0.2);
     text-decoration: none;
   }
 
   .experiment-sidebar__all:hover,
   .experiment-sidebar__all:focus-visible {
     color: hsl(var(--color-white));
+  }
+
+  .experiment-sidebar__all:visited {
+    color: hsl(var(--color-white) / 0.2);
   }
 
   .experiment-sidebar-bar {
@@ -181,16 +187,15 @@ const listId = 'experiment-sidebar-list';
     .experiment-sidebar {
       width: 100%;
       max-width: var(--experiment-sidebar-width);
-      height: 100%;
+      height: auto;
       max-height: 100%;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
+      overflow-y: auto;
+      align-self: start;
       box-sizing: border-box;
     }
 
     .experiment-sidebar__list {
-      flex: 1;
+      overflow-y: visible;
     }
   }
 

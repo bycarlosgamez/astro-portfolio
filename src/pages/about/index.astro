@@ -7,26 +7,19 @@ import Main from '../../layouts/Main.astro';
     <p class='p-1'>I’ve always been drawn to making things.</p>
 
     <p class='p-2'>
-      Sometimes I make music. I’ll spend hours adjusting small details like a
-      tone, a rhythm, or a transition, just to get something to feel right. For
-      me, it’s more about listening closely than finishing quickly. Other times,
-      I focus on more physical projects. I like building wooden furniture and
-      return to it whenever I can. The work is slower. You measure, cut, adjust,
-      and sometimes start over. It feels good to work with your hands and watch
-      something come together piece by piece.
+      As a Design Engineer, I work across design systems, interaction design, and frontend development. I enjoy figuring out how an interface should look, how it should behave, and how to build it. That can mean shaping a component system, testing an idea through a prototype, or refining the details of a working product.
     </p>
 
     <p class='p-3'>
-      I also spend a lot of time outside with my four huskies. Two of them are
-      rescues. They’re chaotic in the best way. Being with them helps me get out
-      of my head, reminds me to be patient, and not to overthink everything. I
-      guess all of that says something about how I see things.
+      Outside of work, I make music and build wooden furniture whenever I can. Both give me a different way to think about making: listening closely, working with constraints, and learning through small adjustments. I like seeing how individual decisions come together to shape the whole.
     </p>
 
     <p class='p-4'>
-      I like paying attention to details, but I’m also comfortable with things
-      taking time. I enjoy the process as much as the outcome. I often return to
-      projects, refining, rebuilding, and rethinking them until they feel right.
+      I also spend a lot of time outside with my four huskies, two of them rescues. They bring plenty of chaos and give me a good reason to step away from the screen.
+    </p>
+
+    <p class='p-5'>
+      Across all of these things, I’m drawn to the process of turning an idea into something you can use, hear, or hold.
     </p>
   </main>
 </Main>
@@ -35,11 +28,15 @@ import Main from '../../layouts/Main.astro';
   .grid-container--about {
     --flow-space: 2rem;
     text-align: start;
+    max-width: 40rem;
+    margin-inline: auto;
     grid-template-areas:
       'p1'
       'p2'
       'p3'
-      'p4';
+      'p4'
+      'p5'
+  ;
 
     & .p-1 {
       grid-area: p1;
@@ -56,6 +53,10 @@ import Main from '../../layouts/Main.astro';
     & .p-4 {
       grid-area: p4;
     }
+
+    & .p-5 {
+      grid-area: p5;
+    }
   }
 
   @media (min-width: 45em) {
@@ -66,7 +67,8 @@ import Main from '../../layouts/Main.astro';
         '. p1 p1 .'
         '. p2 p2 .'
         '. p3 p3 .'
-        '. p4 p4 .';
+        '. p4 p4 .'
+        '. p5 p5 .';
     }
   }
 </style>
