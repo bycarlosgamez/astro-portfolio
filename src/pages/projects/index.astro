@@ -1,172 +1,45 @@
 ---
-import { getCollection } from 'astro:content';
 import Main from '../../layouts/Main.astro';
-
-const projects = (await getCollection('projects')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
 ---
 
 <Main title='Carlos Gamez | Projects' bodyClass='projects'>
-  <main id='main' class='grid-container grid-container--projects flow'>
-    <h1 class='numbered-title'>
+  <main id='main' class='projects-soon flow'>
+    <h1 class='numbered-title numbered-title--compact projects-soon__section-title'>
       <span aria-hidden='true'>02</span>Selected projects
     </h1>
-
-    {
-      projects.length === 0 ? (
-        <p>No projects yet.</p>
-      ) : (
-        <>
-          <div class='dot-indicators flex' role='tablist' aria-label='Projects'>
-            {
-              projects.map((project, index) => (
-                <button
-                  type='button'
-                  role='tab'
-                  id={`project-tab-${index}`}
-                  aria-controls={`project-panel-${index}`}
-                  aria-selected={index === 0 ? 'true' : 'false'}
-                  data-index={index}
-                >
-                  <span class='sr-only'>{project.data.title}</span>
-                </button>
-              ))
-            }
-          </div>
-
-          {
-            projects.map((project, index) => (
-              <article
-                class='project-details flow'
-                id={`project-panel-${index}`}
-                role='tabpanel'
-                aria-labelledby={`project-tab-${index}`}
-                hidden={index !== 0}
-                data-index={index}
-              >
-                <header class='flow flow-small'>
-                  <h2 class='text-600 font-condensed uppercase'>{project.data.title}</h2>
-                  <p class='text-700 uppercase font-condensed'>{project.data.subtitle}</p>
-                </header>
-                <p>
-                  <a
-                    class='button-large uppercase font-mono color-dark text-600 bg-white'
-                    href={`/projects/${project.slug}`}
-                  >
-                    Read case study
-                  </a>
-                </p>
-              </article>
-            ))
-          }
-
-          {
-            projects.map((project, index) => (
-              <img
-                src={project.data.poster}
-                alt=''
-                width='800'
-                height='600'
-                data-project-image
-                data-index={index}
-                hidden={index !== 0}
-              />
-            ))
-          }
-        </>
-      )
-    }
+    <p class='projects-soon__lead text-700 font-condensed uppercase tracking-lg'>
+      Coming soon
+    </p>
+    <p class='color-light'>
+      Flagship case studies are in progress for this iteration. Explore
+      <a class='font-mono uppercase' href='/experiments'>experiments</a
+      >{' '}
+      in the meantime.
+    </p>
   </main>
 </Main>
 
-<script>
-  const tabs = document.querySelectorAll('.grid-container--projects [role="tab"]');
-  const panels = document.querySelectorAll('.grid-container--projects [role="tabpanel"]');
-  const images = document.querySelectorAll('[data-project-image]');
-
-  function showProject(index: number) {
-    tabs.forEach((tab, i) => {
-      tab.setAttribute('aria-selected', i === index ? 'true' : 'false');
-    });
-    panels.forEach((panel, i) => {
-      (panel as HTMLElement).hidden = i !== index;
-    });
-    images.forEach((img, i) => {
-      (img as HTMLElement).hidden = i !== index;
-    });
-  }
-
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const index = Number((tab as HTMLElement).dataset.index);
-      showProject(index);
-    });
-  });
-</script>
-
 <style>
-  .grid-container--projects {
-    --flow-space: 2rem;
-    grid-template-areas:
-      'title'
-      'image'
-      'tabs'
-      'content';
-
-    & > .numbered-title {
-      grid-area: title;
-    }
-
-    & > img {
-      grid-area: image;
-      max-width: 60%;
-      border-bottom: 1px solid hsl(var(color-white) / 0.1);
-    }
-
-    & > .dot-indicators {
-      grid-area: tabs;
-    }
-
-    & > .project-details {
-      grid-area: content;
-
-      & h2 {
-        opacity: 0.5;
-      }
-    }
+  .projects-soon {
+    text-align: start;
+    padding-inline: var(--experiment-layout-gutter, 1rem);
+    padding-block: 2rem 4rem;
+    max-width: 65ch;
+    margin-inline: auto;
+    box-sizing: border-box;
   }
 
-  @media (min-width: 35em) {
-    .grid-container--projects {
-      grid-template-areas:
-        'title'
-        'content'
-        'tabs'
-        'image';
-
-      & .numbered-title {
-        justify-self: start;
-        margin-top: 2rem;
-      }
-    }
+  .projects-soon__section-title {
+    margin: 0 0 1.75rem;
+    color: hsl(var(--color-white));
   }
 
-  @media (min-width: 45em) {
-    .grid-container--projects {
-      grid-template-areas:
-        '. title title .'
-        '. content image .'
-        '. tabs image .';
+  .projects-soon__section-title > span:first-child {
+    color: hsl(var(--color-white) / 0.25);
+  }
 
-      & > img {
-        max-width: 90%;
-        align-self: start;
-      }
-
-      & > .dot-indicators {
-        justify-self: start;
-      }
-    }
+  .projects-soon__lead {
+    margin: 0 0 1rem;
+    color: hsl(var(--color-white));
   }
 </style>
