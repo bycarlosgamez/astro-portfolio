@@ -1,26 +1,191 @@
 ---
+import { getCollection } from 'astro:content';
 import Main from '../../../layouts/Main.astro';
+
+const experiments = (
+  await getCollection('experiments', ({ data }) => data.published === true)
+).sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 
 <Main title='Carlos Gamez | All experiments' bodyClass='experiments'>
-  <main id='main' class='experiment-all flow'>
-    <h1 class='numbered-title'>
-      <span aria-hidden='true'>01</span>All experiments
-    </h1>
-    <p class='color-light'>
-      Full masonry grid coming soon. <a class='font-mono uppercase' href='/experiments'
-        >Back to featured</a
-      >
-    </p>
+  <main id='main' class='experiment-all'>
+    <header class='experiment-all__header flow'>
+      <h1 class='numbered-title numbered-title--compact'>
+        <span aria-hidden='true'>01</span>All experiments
+      </h1>
+      <p class='color-light'>
+        <a class='font-mono uppercase' href='/experiments'>← Selected experiments</a>
+      </p>
+    </header>
+
+    {
+      experiments.length === 0 ? (
+        <p class='color-light'>No published experiments yet.</p>
+      ) : (
+        <ul class='experiment-all__grid'>
+          {
+            experiments.map((entry) => (
+              <li class='experiment-all__item'>
+                <article class='experiment-all-card flow flow-small'>
+                  <p class='experiment-all-card__category color-light text-200 uppercase'>
+                    {entry.data.category}
+                  </p>
+                  <h2 class='experiment-all-card__title text-600 font-condensed uppercase'>
+                    {entry.data.title}
+                  </h2>
+                  <p class='experiment-all-card__description color-light'>
+                    {entry.data.description}
+                  </p>
+                  {
+                    entry.data.display === 'full-page' && entry.data.thumbnail && (
+                      <figure class='experiment-all-card__figure'>
+                        <img
+                          src={entry.data.thumbnail}
+                          alt=''
+                          width='640'
+                          height='360'
+                          loading='lazy'
+                        />
+                      </figure>
+                    )
+                  }
+                  {
+                    entry.data.display === 'inline' && entry.data.thumbnail && (
+                      <figure class='experiment-all-card__figure'>
+                        <img
+                          src={entry.data.thumbnail}
+                          alt=''
+                          width='640'
+                          height='360'
+                          loading='lazy'
+                        />
+                      </figure>
+                    )
+                  }
+                  <p class='experiment-all-card__actions'>
+                    {
+                      entry.data.display === 'full-page' && (
+                        <a
+                          class='font-mono uppercase'
+                          href={`/experiments/${entry.id}`}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          Open exploration ↗
+                        </a>
+                      )
+                    }
+                    {
+                      entry.data.display === 'inline' && (
+                        <a class='font-mono uppercase' href={`/experiments?exp=${entry.id}`}>
+                          View in lab →
+                        </a>
+                      )
+                    }
+                    {
+                      entry.data.externalUrl && (
+                        <a
+                          class='font-mono uppercase color-light'
+                          href={entry.data.externalUrl}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          External ↗
+                        </a>
+                      )
+                    }
+                  </p>
+                </article>
+              </li>
+            ))
+          }
+        </ul>
+      )
+    }
   </main>
 </Main>
 
 <style>
   .experiment-all {
     text-align: start;
-    padding-inline: 1rem;
+    padding-inline: var(--experiment-layout-gutter, 1rem);
     padding-block: 2rem 4rem;
-    max-width: 65ch;
+    max-width: 72rem;
     margin-inline: auto;
+    box-sizing: border-box;
+  }
+
+  .experiment-all__header {
+    margin-bottom: 2rem;
+  }
+
+  .experiment-all__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 1;
+    column-gap: 1.25rem;
+  }
+
+  .experiment-all__item {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+  }
+
+  .experiment-all-card {
+    border: 1px solid hsl(var(--color-white) / 0.1);
+    border-radius: 8px;
+    padding: 1.25rem;
+    background: hsl(var(--color-dark) / 0.35);
+  }
+
+  .experiment-all-card__title {
+    margin: 0;
+  }
+
+  .experiment-all-card__description {
+    margin: 0;
+    max-width: 55ch;
+  }
+
+  .experiment-all-card__category {
+    margin: 0;
+  }
+
+  .experiment-all-card__figure {
+    margin: 0;
+  }
+
+  .experiment-all-card__figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid hsl(var(--color-white) / 0.1);
+  }
+
+  .experiment-all-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin: 0;
+  }
+
+  .experiment-all-card__actions a {
+    color: hsl(var(--color-white));
+    text-decoration: none;
+    border-bottom: 0.15rem solid hsl(var(--color-white) / 0.35);
+    padding-bottom: 0.15rem;
+  }
+
+  @media (min-width: 45em) {
+    .experiment-all__grid {
+      columns: 2;
+    }
+  }
+
+  @media (min-width: 63em) {
+    .experiment-all__grid {
+      columns: 3;
+    }
   }
 </style>

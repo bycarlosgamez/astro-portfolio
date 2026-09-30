@@ -2,29 +2,31 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 
 type MetaItem = { label: string; value: string };
-type PreviewMode = 'live' | 'poster' | 'none';
+type DisplayMode = 'inline' | 'full-page';
 
 type Props = {
+  slug: string;
   description: string;
   meta?: MetaItem[];
   externalUrl?: string;
-  detailHref?: string;
-  preview: PreviewMode;
+  display: DisplayMode;
   title: string;
   thumbnail?: string;
   LiveDemo?: AstroComponentFactory;
 };
 
 const {
+  slug,
   description,
   meta = [],
   externalUrl,
-  detailHref,
-  preview,
+  display,
   title,
   thumbnail,
   LiveDemo,
 } = Astro.props;
+
+const detailHref = display === 'full-page' ? `/experiments/${slug}` : undefined;
 ---
 
 <div class='experiment-panel flow flow-small'>
@@ -48,8 +50,13 @@ const {
       <p class='experiment-panel__actions'>
         {
           detailHref && (
-            <a class='experiment-panel__link font-mono uppercase' href={detailHref}>
-              Open demo →
+            <a
+              class='experiment-panel__link font-mono uppercase'
+              href={detailHref}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              Open exploration ↗
             </a>
           )
         }
@@ -73,30 +80,23 @@ const {
     class='experiment-panel__preview'
     role='region'
     aria-label='Experiment preview'
-    data-preview={preview}
+    data-display={display}
   >
     {
-      preview === 'live' && LiveDemo && <LiveDemo />
+      display === 'inline' && LiveDemo && <LiveDemo />
     }
     {
-      preview === 'live' && !LiveDemo && (
+      display === 'inline' && !LiveDemo && (
         <p class='experiment-panel__empty color-light font-mono uppercase text-200'>
-          Missing embed component for “{title}”.
+          Missing demo component for “{title}”.
         </p>
       )
     }
     {
-      preview === 'poster' && thumbnail && (
+      display === 'full-page' && thumbnail && (
         <figure class='experiment-panel__poster'>
           <img src={thumbnail} alt='' width='640' height='360' loading='lazy' />
         </figure>
-      )
-    }
-    {
-      preview === 'none' && (
-        <p class='experiment-panel__empty color-light font-mono uppercase text-200'>
-          No live preview on this index — use links above if available.
-        </p>
       )
     }
   </div>

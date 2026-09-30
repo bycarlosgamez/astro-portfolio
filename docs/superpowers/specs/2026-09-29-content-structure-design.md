@@ -1,7 +1,7 @@
 # Content structure design — hybrid projects + experiments index
 
 **Branch:** `feat/content-structure-hybrid`  
-**Status:** Implemented  
+**Status:** Superseded — see `2026-09-30-site-architecture-experiments-first-design.md`  
 **Date:** 2026-09-29
 
 ## Summary

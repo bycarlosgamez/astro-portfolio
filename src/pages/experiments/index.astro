@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import ExperimentPanel from '../../components/ExperimentPanel.astro';
 import ExperimentSidebar from '../../components/ExperimentSidebar.astro';
-import { embedModules, embedPathForSlug } from '../../experiments/embed-registry';
+import { demoModules, demoPathForSlug, hasDemo } from '../../experiments/demo-registry';
 import Main from '../../layouts/Main.astro';
 
 const MAX_SIDEBAR_EXPERIMENTS = 10;
@@ -48,14 +48,19 @@ const titleBySlug = Object.fromEntries(
 
 const liveDemoBySlug = new Map<string, Awaited<ReturnType<typeof loadLiveDemo>>>();
 async function loadLiveDemo(slug: string) {
-  const load = embedModules[embedPathForSlug(slug)];
+  const load = demoModules[demoPathForSlug(slug)];
   if (!load) return undefined;
   const module = await load();
   return module.default;
 }
 for (const entry of experiments) {
-  if (entry.data.preview !== 'live') continue;
+  if (entry.data.display !== 'inline') continue;
   const id = experimentId(entry);
+  if (!hasDemo(id)) {
+    throw new Error(
+      `[experiments] "${id}" is published with display: inline but src/experiments/demos/${id}.astro is missing.`,
+    );
+  }
   const Demo = await loadLiveDemo(id);
   if (Demo) liveDemoBySlug.set(id, Demo);
 }
@@ -123,15 +128,11 @@ for (const entry of experiments) {
                     hidden={experimentId(entry) !== defaultSlug}
                   >
                     <ExperimentPanel
+                      slug={experimentId(entry)}
                       description={entry.data.description}
                       meta={entry.data.meta}
                       externalUrl={entry.data.externalUrl}
-                      detailHref={
-                        entry.data.kind === 'demo'
-                          ? `/experiments/${experimentId(entry)}`
-                          : undefined
-                      }
-                      preview={entry.data.preview}
+                      display={entry.data.display}
                       title={entry.data.title}
                       thumbnail={entry.data.thumbnail}
                       LiveDemo={liveDemoBySlug.get(experimentId(entry))}

@@ -1,88 +1,66 @@
 ---
-import { getCollection, render } from 'astro:content';
-import ExperimentCard from '../../components/ExperimentCard.astro';
+import { getCollection } from 'astro:content';
+import { demoModules, demoPathForSlug, hasDemo } from '../../experiments/demo-registry';
 import Main from '../../layouts/Main.astro';
 
 export async function getStaticPaths() {
-  const experiments = await getCollection('experiments', ({ data }) => data.kind === 'demo');
-  return experiments.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  const entries = await getCollection(
+    'experiments',
+    ({ data }) => data.published === true && data.display === 'full-page',
+  );
+
+  return entries.map((entry) => {
+    if (!hasDemo(entry.id)) {
+      throw new Error(
+        `[experiments] "${entry.id}" is published full-page but src/experiments/demos/${entry.id}.astro is missing.`,
+      );
+    }
+    return {
+      params: { slug: entry.id },
+      props: { slug: entry.id, title: entry.data.title },
+    };
+  });
 }
 
-const { entry } = Astro.props;
-await render(entry);
-const { title, description, demoEmbedUrl, externalUrl, meta } = entry.data;
+const { slug, title } = Astro.props;
+const load = demoModules[demoPathForSlug(slug)];
+if (!load) {
+  throw new Error(`Missing demo component for "${slug}"`);
+}
+const module = await load();
+const Demo = module.default;
 ---
 
 <Main title={`Carlos Gamez | ${title}`} bodyClass='experiments'>
-  <main id='main' class='experiment-demo flow'>
-    <p>
-      <a class='font-mono uppercase color-light' href='/experiments'
-        >← Back to experiments</a
-      >
+  <main id='main' class='experiment-detail'>
+    <p class='experiment-detail__back'>
+      <a class='font-mono uppercase color-light' href='/experiments'>← Back to experiments</a>
     </p>
-
-    <div class='experiment-demo__layout'>
-      <div class='experiment-demo__preview'>
-        {
-          demoEmbedUrl && (
-            <iframe
-              title={`${title} demo`}
-              src={demoEmbedUrl}
-              loading='lazy'
-              allowfullscreen
-              sandbox='allow-scripts allow-same-origin allow-popups'
-            />
-          )
-        }
-      </div>
-      <div class='experiment-demo__meta'>
-        <ExperimentCard
-          {title}
-          {description}
-          meta={meta}
-          externalUrl={externalUrl}
-          demoPage
-        />
-      </div>
+    <div class='experiment-detail__stage'>
+      <Demo />
     </div>
   </main>
 </Main>
 
 <style>
-  .experiment-demo {
-    padding-inline: var(--gutter, 1.5rem);
-    padding-block: 2rem 4rem;
-    max-width: 1200px;
-    margin-inline: auto;
+  .experiment-detail {
+    padding-inline: var(--experiment-layout-gutter, 1rem);
+    padding-block: 1.25rem 0;
+    min-height: calc(100dvh - clamp(5.5rem, 14vh, 9.5rem));
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
   }
 
-  .experiment-demo__layout {
+  .experiment-detail__back {
+    margin: 0 0 1rem;
+    flex-shrink: 0;
+  }
+
+  .experiment-detail__stage {
+    flex: 1;
+    min-height: 0;
     display: grid;
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .experiment-demo__preview {
-    min-height: 420px;
-    border: 1px solid hsl(var(--color-white) / 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    background: hsl(var(--color-dark) / 0.5);
-  }
-
-  .experiment-demo__preview iframe {
-    width: 100%;
-    height: min(70vh, 640px);
-    border: 0;
-  }
-
-  @media (min-width: 45em) {
-    .experiment-demo__layout {
-      grid-template-columns: 1.2fr 1fr;
-      align-items: start;
-    }
+    place-items: center;
   }
 </style>

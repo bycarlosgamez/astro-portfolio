@@ -12,37 +12,27 @@ const projects = defineCollection({
 });
 
 const experimentCategory = z.enum(['exper', 'design', 'develop', 'other']);
-const experimentKind = z.enum(['card', 'demo']);
-const experimentPreview = z.enum(['live', 'poster', 'none']);
+const experimentDisplay = z.enum(['inline', 'full-page']);
 
 const experimentSchema = z
   .object({
     title: z.string(),
     description: z.string(),
     category: experimentCategory,
-    kind: experimentKind.default('card'),
-    preview: experimentPreview.default('none'),
+    display: experimentDisplay.default('inline'),
     sidebarOrder: z.number().int().optional(),
     thumbnail: z.string().optional(),
     externalUrl: z.string().url().optional(),
-    demoEmbedUrl: z.string().url().optional(),
     featured: z.boolean().optional(),
-    /** When false, hidden from /experiments index and sidebar; embed URL still works for WIP. */
+    /** When false, hidden from /experiments index, masonry, and detail routes. */
     published: z.boolean().default(false),
     meta: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.kind === 'demo' && !data.demoEmbedUrl) {
+    if (data.display === 'full-page' && !data.thumbnail) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: 'demoEmbedUrl is required when kind is "demo"',
-        path: ['demoEmbedUrl'],
-      });
-    }
-    if (data.preview === 'poster' && !data.thumbnail) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'thumbnail is required when preview is "poster"',
+        message: 'thumbnail is required when display is "full-page"',
         path: ['thumbnail'],
       });
     }

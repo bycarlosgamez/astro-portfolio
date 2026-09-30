@@ -424,14 +424,6 @@ body.experiments.experiments-index {
   max-height: 100dvh;
 }
 
-body.experiment-embed {
-  min-height: 100dvh;
-  display: grid;
-  grid-template-rows: 1fr;
-  place-items: center;
-  padding: 1rem;
-}
-
 @media (min-width: 45em) {
   body.experiments {
     --experiment-sidebar-width: min(16rem, 38vw);
