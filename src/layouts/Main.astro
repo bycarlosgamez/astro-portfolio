@@ -20,7 +20,10 @@ const bodyClassToNav: Partial<Record<string, NavSection>> = {
   'case-study': 'projects',
 };
 
-const currentSection = bodyClassToNav[bodyClass];
+const currentSection = bodyClass
+  .split(/\s+/)
+  .map((token) => bodyClassToNav[token])
+  .find((section): section is NavSection => section !== undefined);
 ---
 
 <!doctype html>
