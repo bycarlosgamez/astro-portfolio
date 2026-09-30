@@ -1,0 +1,17 @@
+---
+description: All code changes on feature branches; never commit directly on main
+alwaysApply: true
+---
+
+# Git branch workflow
+
+- **Do not** implement, edit, or commit on `main`. Treat `main` as merge-only.
+- Before any code or docs change:
+  1. `git checkout main` and `git pull` (when remote exists).
+  2. Create a branch: `feat/…`, `fix/…`, or `chore/…` (short, descriptive slug).
+  3. Do all work and commits on that branch.
+  4. Run verification (e.g. `npm run build`) on the branch.
+  5. Merge into `main` (fast-forward or merge commit as appropriate) only after checks pass.
+  6. Push `main` only when the user asks to publish/deploy.
+- If the user is already on `main` with uncommitted work, create a branch first, then commit there.
+- Do not force-push `main` unless the user explicitly requests it.
