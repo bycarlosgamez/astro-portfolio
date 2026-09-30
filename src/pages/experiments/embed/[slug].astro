@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { embedModules, embedPathForSlug, hasEmbed } from '../../../experiments/embed-registry';
-import '../../../styles/global.css';
+import ExperimentEmbed from '../../../layouts/ExperimentEmbed.astro';
 
 export async function getStaticPaths() {
   const live = await getCollection('experiments', ({ data }) => data.preview === 'live');
@@ -21,19 +21,17 @@ const module = await load();
 const Demo = module.default;
 ---
 
-<section class='experiment-section .experiment-embed-page'>
-  <Demo />
-</section>
+<ExperimentEmbed>
+  <section class='experiment-embed-shell'>
+    <Demo />
+  </section>
+</ExperimentEmbed>
 
-
-<style is:global>
-  .experiment-embed-page {
-    margin: 0;
-    min-height: 100dvh;
-    box-sizing: border-box;
+<style>
+  .experiment-embed-shell {
+    width: 100%;
+    min-height: 0;
     display: grid;
     place-items: center;
-    padding: 1rem;
-    background: hsl(var(--color-dark));
   }
 </style>
