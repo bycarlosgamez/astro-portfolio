@@ -5,6 +5,7 @@ category: exper
 display: inline
 published: false
 featured: false
+sidebarOrder: 1
 meta:
   - label: 'Status'
     value: 'Template'
