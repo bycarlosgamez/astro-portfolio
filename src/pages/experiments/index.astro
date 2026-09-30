@@ -17,9 +17,11 @@ function compareFeatured(
   return a.data.title.localeCompare(b.data.title);
 }
 
-const experiments = (await getCollection('experiments')).sort((a, b) =>
-  a.data.title.localeCompare(b.data.title),
-);
+const experiments = (
+  await getCollection('experiments', ({ data }) => data.published === true)
+).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const showLab = experiments.length > 0;
 
 const featured = experiments
   .filter((e) => e.data.featured)
@@ -59,8 +61,26 @@ for (const entry of experiments) {
 }
 ---
 
-<Main title={`Carlos Gamez | ${defaultTitle}`} bodyClass='experiments experiments-index'>
-  <div class='experiment-viewport-shell'>
+<Main
+  title={showLab ? `Carlos Gamez | ${defaultTitle}` : 'Carlos Gamez | Experiments'}
+  bodyClass={showLab ? 'experiments experiments-index' : 'experiments'}
+>
+  {
+    !showLab ? (
+      <main id='main' class='experiments-soon flow'>
+        <h1 class='numbered-title numbered-title--compact experiments-soon__section-title'>
+          <span aria-hidden='true'>01</span>Selected experiments
+        </h1>
+        <p class='experiments-soon__lead text-700 font-condensed uppercase tracking-lg'>
+          Coming soon
+        </p>
+        <p class='color-light'>
+          Interactive experiments are in progress for this iteration. Explore
+          <a class='font-mono uppercase' href='/projects'>projects</a> in the meantime.
+        </p>
+      </main>
+    ) : (
+      <div class='experiment-viewport-shell'>
     <div
       class:list={[
         'experiment-layout',
@@ -84,24 +104,16 @@ for (const entry of experiments) {
           <h1 class='numbered-title numbered-title--compact experiment-index__section-title'>
             <span aria-hidden='true'>01</span>Selected experiments
           </h1>
-          {
-            experiments.length > 0 && (
-              <h2
-                class='text-700 font-condensed uppercase tracking-lg experiment-index__experiment-title'
-                id='experiment-active-title'
-                aria-live='polite'
-              >
-                {defaultTitle}
-              </h2>
-            )
-          }
+          <h2
+            class='text-700 font-condensed uppercase tracking-lg experiment-index__experiment-title'
+            id='experiment-active-title'
+            aria-live='polite'
+          >
+            {defaultTitle}
+          </h2>
         </header>
 
-        {
-          experiments.length === 0 ? (
-            <p>No experiments yet.</p>
-          ) : (
-            <div class='experiment-index__panels' id='experiment-preview-host'>
+        <div class='experiment-index__panels' id='experiment-preview-host'>
               {
                 experiments.map((entry) => (
                   <div
@@ -127,13 +139,15 @@ for (const entry of experiments) {
                   </div>
                 ))
               }
-            </div>
-          )
-        }
+        </div>
       </main>
     </div>
   </div>
+    )
+  }
 
+  {
+    showLab && (
   <script
     define:vars={{
       defaultSlug,
@@ -212,9 +226,34 @@ for (const entry of experiments) {
 
     activate(parseExp(), { updateUrl: true });
   </script>
+    )
+  }
 </Main>
 
 <style>
+  .experiments-soon {
+    text-align: start;
+    padding-inline: var(--experiment-layout-gutter, 1rem);
+    padding-block: 2rem 4rem;
+    max-width: 65ch;
+    margin-inline: auto;
+    box-sizing: border-box;
+  }
+
+  .experiments-soon__section-title {
+    margin: 0 0 1.75rem;
+    color: hsl(var(--color-white));
+  }
+
+  .experiments-soon__section-title > span:first-child {
+    color: hsl(var(--color-white) / 0.25);
+  }
+
+  .experiments-soon__lead {
+    margin: 0 0 1rem;
+    color: hsl(var(--color-white));
+  }
+
   .experiment-viewport-shell {
     height: var(--experiment-shell-height);
     max-height: var(--experiment-shell-height);

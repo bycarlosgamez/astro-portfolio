@@ -27,6 +27,8 @@ const experimentSchema = z
     externalUrl: z.string().url().optional(),
     demoEmbedUrl: z.string().url().optional(),
     featured: z.boolean().optional(),
+    /** When false, hidden from /experiments index and sidebar; embed URL still works for WIP. */
+    published: z.boolean().default(false),
     meta: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
   })
   .superRefine((data, ctx) => {

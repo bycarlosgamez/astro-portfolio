@@ -1,11 +1,11 @@
 ---
 title: 'Animation 1'
-description: 'Duplicate this entry and src/experiments/embed/<slug>.astro to add a new experiment.'
+description: 'WIP template — set published true when ready for /experiments. Test at /experiments/embed/animation1.'
 category: exper
 kind: card
 preview: live
-sidebarOrder: 1
-featured: true
+published: false
+featured: false
 meta:
   - label: 'Status'
     value: 'Template'
