@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import ExperimentChrome from '../../components/ExperimentChrome.astro';
+import ExperimentPanel from '../../components/ExperimentPanel.astro';
 import ExperimentSidebar from '../../components/ExperimentSidebar.astro';
-import ExperimentStage from '../../components/ExperimentStage.astro';
+import { embedModules, embedPathForSlug } from '../../experiments/embed-registry';
 import Main from '../../layouts/Main.astro';
 
 const MAX_SIDEBAR_EXPERIMENTS = 10;
@@ -43,6 +43,20 @@ const featuredSlugs = new Set(featured.map((e) => experimentId(e)));
 const titleBySlug = Object.fromEntries(
   experiments.map((e) => [experimentId(e), e.data.title]),
 );
+
+const liveDemoBySlug = new Map<string, Awaited<ReturnType<typeof loadLiveDemo>>>();
+async function loadLiveDemo(slug: string) {
+  const load = embedModules[embedPathForSlug(slug)];
+  if (!load) return undefined;
+  const module = await load();
+  return module.default;
+}
+for (const entry of experiments) {
+  if (entry.data.preview !== 'live') continue;
+  const id = experimentId(entry);
+  const Demo = await loadLiveDemo(id);
+  if (Demo) liveDemoBySlug.set(id, Demo);
+}
 ---
 
 <Main title={`Carlos Gamez | ${defaultTitle}`} bodyClass='experiments experiments-index'>
@@ -96,7 +110,7 @@ const titleBySlug = Object.fromEntries(
                     data-title={entry.data.title}
                     hidden={experimentId(entry) !== defaultSlug}
                   >
-                    <ExperimentChrome
+                    <ExperimentPanel
                       description={entry.data.description}
                       meta={entry.data.meta}
                       externalUrl={entry.data.externalUrl}
@@ -105,12 +119,10 @@ const titleBySlug = Object.fromEntries(
                           ? `/experiments/${experimentId(entry)}`
                           : undefined
                       }
-                    />
-                    <ExperimentStage
                       preview={entry.data.preview}
-                      slug={experimentId(entry)}
                       title={entry.data.title}
                       thumbnail={entry.data.thumbnail}
+                      LiveDemo={liveDemoBySlug.get(experimentId(entry))}
                     />
                   </div>
                 ))

@@ -1,5 +1,5 @@
 ---
-title: 'Animation template'
+title: 'Animation 1'
 description: 'Duplicate this entry and src/experiments/embed/<slug>.astro to add a new experiment.'
 category: exper
 kind: card

@@ -15,10 +15,14 @@ const listId = 'experiment-sidebar-list';
   items.length > 0 && (
     <>
       <div class='experiment-sidebar-bar'>
-        <div class="experiment-sidebar-bar__header"
+        <button
+          type='button'
+          class='experiment-sidebar-bar__button font-mono uppercase tracking-sm'
+          aria-expanded='false'
+          aria-controls='experiment-sidebar-panel'
         >
           Pick an experiment
-        </div>
+        </button>
       </div>
 
       <nav
@@ -59,20 +63,13 @@ const listId = 'experiment-sidebar-list';
 }
 
 <script>
-  const toggle = document.querySelector('.experiment-sidebar-bar__button');
-  const panel = document.getElementById('experiment-sidebar-panel');
-
-  toggle?.addEventListener('click', () => {
-    const open = panel?.getAttribute('data-visible') === 'true';
-    panel?.setAttribute('data-visible', open ? 'false' : 'true');
-    toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-  });
+  import '../scripts/experiment-sidebar-drawer.ts';
 </script>
 
 <style>
   .experiment-sidebar {
     list-style: none;
-    background: hsl(var(--color-) / 0.95);
+    background: hsl(var(--color-dark) / 0.95);
     border-radius: 0 1em 1em 0;
     padding-block: 1.25rem;
     padding-inline: clamp(1.25rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
@@ -171,11 +168,12 @@ const listId = 'experiment-sidebar-list';
     width: 100%;
     border: 0;
     background: hsl(var(--color-white) / 0.08);
-    color: inherit;
+    color: hsl(var(--color-light));
     cursor: pointer;
     padding: 0.85rem 1rem;
     border-radius: 0.35em;
     text-align: center;
+    font-size: var(--text-400);
   }
 
   .experiment-sidebar-bar__button:hover,
@@ -200,6 +198,10 @@ const listId = 'experiment-sidebar-list';
   }
 
   @media (max-width: 44.999em) {
+    .experiment-sidebar__header {
+      display: none;
+    }
+
     .experiment-sidebar-bar {
       display: block;
       position: fixed;
@@ -224,7 +226,7 @@ const listId = 'experiment-sidebar-list';
       inset: 0 15% 0 0;
       z-index: 1000;
       border-radius: 0 1em 1em 0;
-      padding-top: min(12rem, 18vh);
+      padding-top: clamp(4.5rem, 14vh, 6rem);
       transform: translateX(-100%);
       transition: transform 500ms ease-in-out;
     }

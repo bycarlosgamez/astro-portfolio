@@ -1,0 +1,39 @@
+<div class='stage'>
+  <div class='orb' aria-hidden='true'></div>
+</div>
+
+<style>
+  .stage {
+    display: grid;
+    align-items: center;
+    gap: 1.25rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .orb {
+    width: 5vmin;
+    height: 5vmin;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at bottom right,
+      hsl(var(--color-accent)),
+      hsl(var(--color-light))
+    );
+    animation: slide-right 1s linear infinite;
+  }
+
+  @keyframes slide-right {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(50vw);
+    }
+  }
+
+  .label {
+    margin: 0;
+    letter-spacing: var(--tracking-sm);
+  }
+</style>
