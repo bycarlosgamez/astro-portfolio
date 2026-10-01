@@ -1,0 +1,49 @@
+---
+description: Personal GitHub account only — no work identity on this repo
+alwaysApply: true
+---
+
+# Personal GitHub identity (bycarlosgamez)
+
+This workspace is **personal**. Do not attribute commits or pushes to the work account (`carlosgamez-nga`, `carlos@ngahealthcare.com`).
+
+## Git commit identity (this repo)
+
+- **Name:** `bycarlosgamez`
+- **Email:** `hardpx@gmail.com` (or the verified `bycarlosgamez` GitHub noreply address — never a work domain)
+
+Before the first commit in a session (and before any push), confirm:
+
+```bash
+git config --local user.name
+git config --local user.email
+git log -1 --format='%an <%ae>'   # optional sanity check on latest commit
+```
+
+If local config is wrong, set it for **this repo only**:
+
+```bash
+git config --local user.name "bycarlosgamez"
+git config --local user.email "hardpx@gmail.com"
+```
+
+Do not change global git config unless the user asks.
+
+## GitHub CLI / authentication
+
+Pushes must use the **bycarlosgamez** account:
+
+```bash
+gh auth status
+```
+
+If the active account is not `bycarlosgamez`, stop and tell the user to run `gh auth login` (or switch accounts) before pushing.
+
+## Never on this repo
+
+- Commits with `@ngahealthcare.com` or author name `carlosgamez-nga`
+- Adding the work email to the **bycarlosgamez** GitHub account (user Settings — out of band, but do not suggest it for “fixing” this repo)
+
+## History rewrites
+
+If author rewrite was done, updating GitHub requires **force-push** with lease (`git push --force-with-lease`). Only do that when the user explicitly asks to publish the rewritten history.
